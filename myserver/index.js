@@ -14,8 +14,9 @@ app.get('/', (req, res) => {
 
 // 启用子路由-用户模块
 app.use('/user', require('./Controller/UserController'));
+app.use('changed',require('./Controller/ChangedController'))
 app.use('/cate', require('./Controller/CateController'));
 
-app.listen(81, () => {
-    console.log('Example app listening on port 81!');
+app.listen(8081, () => {
+    console.log('Example app listening on port 8081!');
 });
