@@ -1,0 +1,37 @@
+{
+  "id": "1423562",
+  "name": "vue",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "357435",
+      "name": "保障",
+      "font_class": "security",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    },
+    {
+      "icon_id": "979444",
+      "name": "付款",
+      "font_class": "sweep",
+      "unicode": "e6c4",
+      "unicode_decimal": 59076
+    },
+    {
+      "icon_id": "2129687",
+      "name": "特色专题",
+      "font_class": "tesezhuanti",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "7365608",
+      "name": "新手引导",
+      "font_class": "xinshouyindao",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    }
+  ]
+}
