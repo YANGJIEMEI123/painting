@@ -5,6 +5,7 @@ import detail from './views/detail.vue'
 import mycar from './views/mycar.vue'
 import myorder from './views/myorder.vue'
 import echarts from './views/echarts.vue'
+import release from './views/release.vue'
 import statistics from './views/statistics.vue'
 
 Vue.use(Router)
@@ -33,6 +34,12 @@ export default new Router({
       name: 'echarts',
       component: echarts
     },
+    {
+      path: '/release',
+      name: 'release',
+      component: release
+    },
+
     {
       path: '/myorder',
       name: 'myorder',
