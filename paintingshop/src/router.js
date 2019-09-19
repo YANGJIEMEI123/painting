@@ -7,8 +7,9 @@ import myorder from './views/myorder.vue'
 import echarts from './views/echarts.vue'
 import release from './views/release.vue'
 import statistics from './views/statistics.vue'
+import regist from './views/regist.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -49,6 +50,11 @@ export default new Router({
       path: '/statistics',
       name: 'statistics',
       component: statistics
+    },
+    {
+      path: '/regist',
+      name: 'regist',
+      component: regist
     },
     {
       path: '/about',
