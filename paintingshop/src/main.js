@@ -7,7 +7,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 import bottom from '@/components/bottom.vue'
 import top from '@/components/top.vue'
 import "./assets/iconfont/iconfont.css"
-
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
 
 Vue.use(ElementUI);//启用
 Vue.config.productionTip = false
