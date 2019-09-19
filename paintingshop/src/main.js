@@ -9,6 +9,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 
+
 Vue.use(ElementUI);//启用
 Vue.config.productionTip = false
 //定义全局axios 的公用服务端口
