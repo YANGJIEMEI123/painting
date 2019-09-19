@@ -7,7 +7,7 @@ router.post('/reg', (req, res)=>{
     // 需要对数据进行操作  Model 
     let userModel  = new UserModel();
     // 对数据进行处理 passwd1
-    delete req.body.passwd1;
+   
     // req.body.regtimes = new Date().toLocaleString();
 
     userModel.registerUser(req.body, (results)=>{

@@ -2,9 +2,9 @@
 module.exports = {
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: '1234567',
     database: 'painting',
-    port: 3306,
+    port: 3307,
     /*执行多条sql语句 */
     multipleStatements: true
 }

@@ -115,7 +115,7 @@
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
-						this.axios.post('/reg', this.ruleForm)
+						this.axios.post('/user/reg', this.ruleForm)
 						  .then( (response)=> {
 							  if(response.data.msg=="username_has_exited"){
 								  this.$alert('该用户名已注册', '注册失败', {
