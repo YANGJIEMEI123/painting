@@ -2,11 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-<<<<<<< HEAD
+
 import ElementUI from 'element-ui'
-=======
+
 import ElementUI from 'element-ui';
->>>>>>> 3914091759025520b8622a088d848c1a5530bc74
+
 import 'element-ui/lib/theme-chalk/index.css';
 import bottom from '@/components/bottom.vue'
 import top from '@/components/top.vue'
