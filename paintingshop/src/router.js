@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import detail from './views/detail.vue'
 import mycar from './views/mycar.vue'
 import myorder from './views/myorder.vue'
+import echarts from './views/echarts.vue'
 import statistics from './views/statistics.vue'
 
 Vue.use(Router)
@@ -26,6 +27,11 @@ export default new Router({
       path: '/mycar',
       name: 'mycar',
       component: mycar
+    },
+    {
+      path: '/echarts',
+      name: 'echarts',
+      component: echarts
     },
     {
       path: '/myorder',
