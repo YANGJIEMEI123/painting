@@ -11,7 +11,12 @@ import top from '@/components/top.vue'
 
 import "./assets/iconfont/bottom/iconfont"
 import echarts from 'echarts'
-
+import  'echarts/theme/dark.js'
+import  'echarts/theme/macarons.js'
+import  'echarts/theme/infographic'
+import  'echarts/theme/roma'
+import  'echarts/theme/shine'
+import  'echarts/theme/vintage'
 Vue.prototype.$echarts = echarts
 Vue.prototype.axios=axios;
 

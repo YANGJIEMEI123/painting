@@ -9,8 +9,10 @@
 </template>
 <style scoped>
 .indexs{
+    padding:50px;
     display:flex;
     justify-content:space-between;
+    background-color: #333333;
 }
 </style>
 <script >
@@ -40,94 +42,76 @@ export default {
   },
   methods: {
       goodschart(){
-        var barChart = echarts.init(document.getElementById('main'));
+        var barChart = echarts.init(document.getElementById('main'),'dark');
         barChart.setOption({
-             title: {
-        text: '一周销量图',
-        x:'center'
-       
-    },
-    tooltip : {
+            tooltip : {
         trigger: 'axis',
         axisPointer : {            // 坐标轴指示器，坐标轴触发有效
             type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
         }
     },
     legend: {
-        data: ['油画', '花鸟画','素描','漆画'],
-        orient: 'vertical',
-        left: 'left',
+        data:['库存', '销量', '总量']
     },
     grid: {
-        left: '15%',
+        left: '3%',
         right: '4%',
         bottom: '3%',
         containLabel: true
     },
-    xAxis:  {
-        type: 'value'
-    },
-    yAxis: {
-        type: 'category',
-        data: ['周一','周二','周三','周四','周五','周六','周日']
-    },
-    series: [
+    xAxis : [
         {
-            name: '油画',
-            type: 'bar',
-            stack: '总量',
-            center: ['50%', '60%'],
+            type : 'value'
+        }
+    ],
+    yAxis : [
+        {
+            type : 'category',
+            axisTick : {show: false},
+            data : ['油画','花鸟画','国画','漆画']
+        }
+    ],
+    series : [
+        {
+            name:'库存',
+            type:'bar',
             label: {
                 normal: {
                     show: true,
-                    position: 'insideRight'
+                    position: 'inside'
                 }
             },
-            data: [320, 302, 301, 334, 390, 330, 320]
+            data:[200, 170, 240, 244]
         },
         {
-            name: '花鸟画',
-            type: 'bar',
+            name:'总量',
+            type:'bar',
             stack: '总量',
             label: {
                 normal: {
-                    show: true,
-                    position: 'insideRight'
+                    show: true
                 }
             },
-            data: [120, 132, 101, 134, 90, 230, 210]
+            data:[320, 302, 341, 374]
         },
         {
-            name: '素描',
-            type: 'bar',
-            stack: '总量',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'insideRight'
-                }
-            },
-            data: [220, 182, 191, 234, 290, 330, 310]
-        },
-        {
-            name: '漆画',
-            type: 'bar',
+            name:'销量',
+            type:'bar',
             stack: '总量',
             label: {
                 normal: {
                     show: true,
-                    position: 'insideRight'
+                    position: 'left'
                 }
             },
-            data: [150, 212, 201, 154, 190, 330, 410]
-        },
-      
+            data:[-120, -132, -101, -134]
+        }
     ]
 });
 
       },
       mystock(){
- var pieChart = echarts.init(document.getElementById('stock'));
+ var pieChart = echarts.init(document.getElementById('stock'),'dark');
  pieChart.setOption({
  title : {
         text: '收益占比',
@@ -141,7 +125,7 @@ export default {
     legend: {
         orient: 'vertical',
         left: 'left',
-        data: ['油画', '花鸟画','素描','漆画']
+        data: ['油画', '花鸟画','国画','漆画']
     },
     series : [
         {
@@ -152,7 +136,7 @@ export default {
             data:[
                 {value:335, name:'油画'},
                 {value:310, name:'花鸟画'},
-                {value:234, name:'素描'},
+                {value:234, name:'国画'},
                 {value:135, name:'漆画'},
                
             ],
