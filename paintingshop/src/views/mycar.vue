@@ -1,75 +1,133 @@
+
 <template>
-	<el-table :data="tableData" stripe style="width: 95%;margin-left: 100px;">
-	            <el-table-column label="复选框" width="100" style="color:red"><template slot-scope="scope">
-				<el-form type="checkbox"></el-form>
-			 </template></el-table-column> 
-		<el-table-column prop="img" label="" width="50" >
-			<template slot-scope="scope">
-				<img :src="scope.row.img" style="background-size: 100% 100%;width: 30px;height: 30px;">
-			 </template>
-		</el-table-column>
-		<el-table-column prop="name" label="商品名称" width="150"></el-table-column>
-		<el-table-column prop="price" label="单价" width="150"></el-table-column>
-		<el-table-column prop="orderprice" label="订金" width="150"></el-table-column>
-		<el-table-column prop="youhui" label="优惠金额" width="150"></el-table-column>
-		<el-table-column prop="number" label="购买数量" width="150"></el-table-column>
-		<el-table-column prop="prices" label="商品总价" width="150"></el-table-column>
-		<el-table-column prop="do" label="操作"width="180"><template slot-scope="scope">
-				<el-button @click="handleClick(scope.row)" type="text" size="small">收藏</el-button>
-				        <el-button type="text" size="small">删除</el-button>
-			 </template></el-table-column>
-	</el-table>
+	<div>
+		<tops></tops>
+    <div class="bbb">
+        <div></div>
+			<el-checkbox-group v-model="checkedGoods"  class="aaa">
+				<el-checkbox>
+				   <span style="width:150px;display:inline-block;margin:0 45px 0 0">商品名称</span>
+				   <span style="width:150px;display:inline-block;margin:0 45px;">商品单价</span>
+				   <span style="width:150px;display:inline-block;margin:0 45px 0 95px;">商品数量</span>
+				   <span style="width:150px;display:inline-block;margin:0 10px;">商品总价</span>
+				</el-checkbox>
+            <el-checkbox v-for="good in goods" :label="good.name" :key="good.id">
+                <span style="width:150px;display:inline-block">{{good.name}}</span>
+                <span style="width:150px;display:inline-block;margin-left:100px;margin-right:100px">{{good.price}}元</span>
+                <span> <el-input-number v-model="good.num" @change="handleChangeNum(good.id)" label="描述文字" size="small"></el-input-number></span>
+                <span style="width:150px;display:inline-block;margin-left:100px;margin-right:100px">小计： {{good.OnePrice}}元</span>
+            </el-checkbox>
+        </el-checkbox-group>
+		<el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleAllChange">全选</el-checkbox>
+        <div style="margin-top:40px;margin-left:450px;text-align:left">
+            <span style="margin-right:20px;display:inline-block">总价：{{allPrice}}元</span>
+            <el-button type="primary" size="small" @click="submitBtn" style="background-color: orangered;border: none;font: 18px bolder;">去结算<!-- <i class="el-icon-upload el-icon--right"></i> --></el-button>
+        </div>
+
+    </div>
+	</div>
 </template>
 <script>
-	export default {
-		data() {
-			return {
-				tableData: [{
-					    img:'https://f10.baidu.com/it/u=4202700975,231287935&fm=72',
-						name: '油画',
-						price: '100',
-						orderprice: '20',
-						youhui: '5',
-						number: '10',
-						prices: '1000',
-						do: ''
-					}, {
-						img:'https://f10.baidu.com/it/u=4202700975,231287935&fm=72',
-						name: '油画',
-						price: '100',
-						orderprice: '20',
-						youhui: '5',
-						number: '10',
-						prices: '1000',
-						do: ''
-					}, {
-						img:'https://f10.baidu.com/it/u=4202700975,231287935&fm=72',
-						name: '油画',
-						price: '100',
-						orderprice: '20',
-						youhui: '5',
-						number: '10',
-						prices: '1000',
-						do: ''
-					},
-					{
-						img:'https://f10.baidu.com/it/u=4202700975,231287935&fm=72',
-						name: '油画',
-						price: '100',
-						orderprice: '20',
-						youhui: '5',
-						number: '10',
-						prices: '1000',
-						do: ''
-					}
-				]
-			}
-		},
-		methods:{
-			handleClick:function(a){
-				console.log(a)
-			}
-		}
-	
-	}
+const goodOptions = ["油画", "花鸟画", "素描（彩铅）", "漆画"];
+export default {
+    data() {
+        return {
+            goods: [
+                {
+                    id: 10,
+                    name: "油画",
+                    price: 300
+                },
+                {
+                    id: 11,
+                    name: "花鸟画",
+                    price: 250
+                },
+                {
+                    id: 12,
+                    name: "素描（彩铅）",
+                    price: 180
+                },
+                {
+                    id: 13,
+                    name: "漆画",
+                    price: 200
+                },
+            ],
+            checkAll: false,
+            isIndeterminate: true,
+            checkedGoods: [],
+            allPrice: 0
+        };
+    },
+    methods: {
+        handleAllChange(val) {
+            console.log(val, "555");
+            this.checkedGoods = val ? goodOptions : [];
+            // this.isIndeterminate = false;
+            if (val) {
+                this.getAllPrice();
+            } else {
+                this.allPrice = 0;
+            }
+        },
+        handleOneChange(value) {
+            let a = 0;
+            let checkedCount = value.length;
+            this.checkAll = checkedCount === this.checkedGoods.length;
+            this.isIndeterminate = checkedCount > 0 && checkedCount < this.checkedGoods.length;
+            value.filter((it, id) => {
+                if (it == this.goods[id].name) {
+                    if (this.goods[id].OnePrice) {
+                        a += this.goods[id].OnePrice;
+                    }
+                }
+            });
+            this.allPrice = a;
+        },
+        handleChangeNum(val) {
+            this.goods.filter((it, id) => {
+                if (it.id == val) {
+                    it.OnePrice = it.num * it.price;
+                }
+            });
+            this.getAllPrice();
+        },
+        getAllPrice() {
+            //获取总价方法封装
+            let money = 0;
+            this.goods.filter((it, id) => {
+                if (it.OnePrice) {
+                    money += it.OnePrice;
+                }
+            });
+            this.allPrice = money;
+        },
+        submitBtn() {
+            this.$alert( this.allPrice+"元", "所有商品总计",{
+                confirmButtonText: "确定",
+                callback: action => {
+                    this.$message({
+                        type: "info",
+                         message: "购买成功"
+                    });
+                }
+            });
+        }
+    }
+};
 </script>
+<style lang="postcss" scoped>
+.bbb {
+	margin: 50px 300px;
+}
+.aaa > label {
+    display: block;
+    text-align: left;
+    margin-top: 20px;
+}
+.el-checkbox {
+    display: block;
+    text-align: left;
+}
+</style>
