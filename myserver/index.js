@@ -1,7 +1,9 @@
 const express = require('express');
+const mysql = require("mysql");
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const app = express();
+
 // 建立数据库,连接
 let mydb = mysql.createConnection({
     host: "localhost",
@@ -11,8 +13,14 @@ let mydb = mysql.createConnection({
     database: "painting"
 })
 mydb.connect();
+
 // 跨域处理
-app.use(require('./Tools/cors').cors);
+app.use(function (req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    next();
+});
+
 //parse content-type   application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
     extended: true
@@ -23,17 +31,9 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
-
+//不用子路由,直接在/后面添路径
 app.use('/IMG', express.static(__dirname + '/IMG'));
 
-app.get("/getOli", (req, res) => {
-    let sql = "select * from goods where 1";
-    console.log(sql)
-    mydb.query(sql, (err, results) => {
-        console.log(results)
-        res.json(results);
-    })
-});
 app.get("/lunbo", (req, res) => {
     let sql = "select * from goodstype where 1";
     console.log(sql)
@@ -42,6 +42,54 @@ app.get("/lunbo", (req, res) => {
         res.json(results);
     })
 })
-app.listen(8081, () => {
-    console.log("app has started on 8081!")
+
+app.get("/getOli", (req, res) => {
+    let sql = "select * from goods where 1";
+    console.log(sql)
+    mydb.query(sql, (err, results) => {
+        console.log(results)
+        res.json(results);
+    })
 })
+
+app.post('/publish', function (req, res) {
+    var sql = "select * from goods where name='" + req.body.name + "'";
+    mydb.query(sql, function (err, results) {
+        if (results.length > 0) {
+            res.json({
+                msg: "existed"
+            });
+        } else {
+            // var newsql=`INSERT INTO goods(name,drawer,nationality,price,stock,img,description,typeid) values ('${req.body.name}','${req.body.drawer}','${req.body.nation}','${req.body.price}','${req.body.stock}','${req.body.fileList}','${req.body.descripe}','${req.body.type}')`;
+            var newsql = `INSERT INTO goods(name,drawer,nationality,price,stock,description,typeid,img) 
+        values ('${req.body.name}','${req.body.drawer}','${req.body.nation}','${req.body.price}','${req.body.stock}','${req.body.descripe}','${req.body.type}','${req.body.fileList}')`;
+            console.log(newsql)
+            mydb.query(newsql, function (err, results) {
+                if (err) {
+                    console.log(" publish error")
+                    return;
+                }
+                res.json(results);
+            })
+        }
+
+    })
+});
+app.post('/getImg', function (req, res) {
+    let sql = `insert into goods(img) values('${req.body.fileList}')`;
+    mydb.query(sql, function (err, results) {
+        console.log(sql);
+        if (err) {
+            console.log(" img error")
+            return;
+        }
+        res.json(results);
+    })
+})
+
+
+
+app.listen(8081, () => {
+    console.log('Example app listening on port 8081!');
+
+});
