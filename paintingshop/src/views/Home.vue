@@ -5,6 +5,7 @@
       <div></div>
       <div class="search">
         <input type="text" placeholder="      请输入商品名称">
+        
         <div class="word">搜索</div>
       </div>
     </div>

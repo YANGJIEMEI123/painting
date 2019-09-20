@@ -99,6 +99,12 @@
         padding-top: 20px;
     }
 
+    .up>ul>li>span {
+        transform: scale(1.4);
+        transition: all 0.7s;
+        cursor: pointer;
+    }
+
     .up li>span:first-child {
         font-size: 64px;
     }
@@ -122,7 +128,14 @@
     .son>ul>li {
         margin-top: 20px;
     }
+    .son>ul>li:hover{
+        cursor: pointer;
+        transform: scale(1.4);
+        transition: all 0.6s;
+
+    }
+
     .son:last-child {
-        border-right:0;
+        border-right: 0;
     }
 </style>
