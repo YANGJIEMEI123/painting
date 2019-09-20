@@ -1,7 +1,9 @@
 <template>
     <div >
-        
+      <tops></tops>
 <div class="all">
+
+
 <div class="publish">
 <el-form :inline="true" :model="formInline" class="demo-form-inline">
   <el-form-item label="作品">
@@ -54,7 +56,11 @@
 <el-dialog :visible.sync="dialogVisible">
   <img width="100%" :src="dialogImageUrl" alt="">
 </el-dialog>
+<el-button type="success" plain style="margin-top:30px">发布商品</el-button>
+
 </div>
+
+
     </div>
 </template>
 <style scoped>
@@ -72,8 +78,8 @@
   
     margin:0 auto;
 }
+
 .publish{
-     
     display: flex;
     flex-direction: column;
     /* justify-content:space-evenly; */
@@ -83,6 +89,7 @@
     bottom: 0;
     left:0;
     margin:auto;
+   
 }
  
 </style>
@@ -95,7 +102,6 @@
           name: '',
           drawer: '',
           type: '',
-          
           nation:'',
           price:'',
           stock:''
