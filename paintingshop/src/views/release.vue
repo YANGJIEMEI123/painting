@@ -1,16 +1,18 @@
 <template>
     <div >
-        
+      <tops></tops>
 <div class="all">
+
+
 <div class="publish">
-<el-form :inline="true" :model="formInline" class="demo-form-inline">
-  <el-form-item label="作品">
+<el-form :inline="true" :model="formInline" status-icon :rules="rules" ref="formInline" class="demo-form-inline">
+  <el-form-item label="作品" prop="name">
     <el-input v-model="formInline.name"></el-input>
   </el-form-item>
-  <el-form-item label="画家">
+  <el-form-item label="画家" prop="drawer">
     <el-input v-model="formInline.drawer"></el-input>
   </el-form-item >
-<el-form-item label="类型">
+<el-form-item label="类型" >
    <el-select v-model="value" placeholder="请选择作品类型">
     <el-option
       v-for="item in options"
@@ -24,14 +26,14 @@
    
 </el-form>
 <el-form :inline="true" :model="formInline" class="demo-form-inline">
-      <el-form-item label="国籍">
+      <el-form-item label="国籍" prop="nation">
     <el-input v-model="formInline.nation"></el-input>
   </el-form-item>
- <el-form-item label="价格">
+ <el-form-item label="价格" prop="price">
     <el-input v-model="formInline.price"></el-input>
   </el-form-item>
 
-   <el-form-item label="存货">
+   <el-form-item label="存货" prop="stock">
     <el-input v-model="formInline.stock"></el-input>
   </el-form-item>
    
@@ -54,7 +56,11 @@
 <el-dialog :visible.sync="dialogVisible">
   <img width="100%" :src="dialogImageUrl" alt="">
 </el-dialog>
+<el-button type="success" plain style="margin-top:30px">发布商品</el-button>
+
 </div>
+
+
     </div>
 </template>
 <style scoped>
@@ -72,8 +78,8 @@
   
     margin:0 auto;
 }
+
 .publish{
-     
     display: flex;
     flex-direction: column;
     /* justify-content:space-evenly; */
@@ -83,22 +89,90 @@
     bottom: 0;
     left:0;
     margin:auto;
+   
 }
  
 </style>
 <script>
   export default {
     data() {
+        var checkName = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('名字不能为空'));
+        }
+       
+      };
+      var checkdrawer = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('作者不能为空'));
+        }
+       
+      };
+      var checknation = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('国籍不能为空'));
+        }
+       
+      };
+
+ var checkprice = (rule, value, callback) => {
+   
+        if (value==="") {
+          return callback(new Error('请输入价格'));
+        }
+        // onkeyup="" onafterpaste="this.value=this.value.replace(/\D|^0/g,'')"
+
+        else {
+        if (/\D|^0/gim.test(value)) {
+          if (this.formInline.price !== "") {
+            this.$refs.formInline.validateField("price");
+          }
+          callback();
+        } else {
+          callback(new Error("价格必须为大于零的数字"));
+        }
+      }
+      };
+
+        var checkstock = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('存货不能为空'));
+        }
+        setTimeout(() => {
+          if (!Number.isInteger(value)) {
+            callback(new Error('请输入整数值'));
+          } 
+        }, 1000);
+      };
+
       return {
         labelPosition: 'right',
         formInline: {
           name: '',
           drawer: '',
           type: '',
-          
           nation:'',
           price:'',
           stock:''
+         
+        },
+         rules: {
+          name: [
+            { validator: checkName, trigger: 'blur' }
+          ],
+          drawer: [
+            { validator: checkdrawer, trigger: 'blur' }
+          ],
+          nation: [
+            { validator: checknation, trigger: 'blur' }
+          ],
+           price: [
+            { validator: checkprice, trigger: 'blur' }
+          ],
+         stock: [
+            { validator: checkstock, trigger: 'blur' }
+          ]
+        
         },
         formLabelAlign:{
           descripe:''

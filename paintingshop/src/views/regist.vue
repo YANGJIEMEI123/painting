@@ -1,9 +1,10 @@
 <template>
 	<div>
+		<tops></tops>
         <div class="reg"><h3>注册</h3></div>
 		<div class="myform">
 			<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-				<el-form-item label="用户名" prop="name">
+				<el-form-item label="账号" prop="name">
 					<el-input v-model="ruleForm.name"></el-input>
 				</el-form-item>
                 <el-form-item label="昵称" prop="nickname">
@@ -27,6 +28,17 @@
 <script>
 	export default {
 		data: function() {
+			var validatename = (rule, value, callback) => {
+				if (value === '') {
+					callback(new Error('请输入账号'));
+				} else {
+					if(/^1[3456789]\d{9}$/.test(value)){
+						callback();
+					}else{
+						callback(new Error('账号为11 为手机号'));
+					}
+				}
+			};
 			var validatePass = (rule, value, callback) => {
 				if (value === '') {
 					callback(new Error('请输入密码'));
@@ -58,29 +70,20 @@
                     nickname:""
 				},
 				rules: {
-					name: [{
+					name: [
+						{
 							required: true,
-							message: '请输入用户名',
+							message: '请输入账号',
 							trigger: 'blur'
 						},
-						{
-							min: 2,
-							max: 6,
-							message: '长度在 2 到 6 个字符',
-							trigger: 'blur'
-						}
+						{ validator: validatename, trigger: 'blur' }
                     ],
                     nickname: [{
 							required: true,
 							message: '请输入昵称',
 							trigger: 'blur'
 						},
-						{
-							min: 2,
-							max: 6,
-							message: '长度在 2 到 6 个字符',
-							trigger: 'blur'
-						}
+
 					],
 					passW: [{
 							required: true,
@@ -115,7 +118,7 @@
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
-						this.axios.post('/user/reg', this.ruleForm)
+						this.axios.post('/regist', this.ruleForm)
 						  .then( (response)=> {
 							  if(response.data.msg=="username_has_exited"){
 								  this.$alert('该用户名已注册', '注册失败', {

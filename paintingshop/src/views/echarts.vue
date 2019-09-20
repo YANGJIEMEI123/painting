@@ -1,6 +1,6 @@
 <template>
 <div>
-    <!-- <tops></tops> -->
+    <tops></tops>
    <div class="indexs">
          <div id="main" style="width:50%;height:300px;"></div>
          <div id="stock" style="width:50%;height:300px;"></div>

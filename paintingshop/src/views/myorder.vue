@@ -1,5 +1,6 @@
 <template>
 <div class="mydiv">
+  <tops></tops>
     <el-breadcrumb separator="/" class="bread">
   <el-breadcrumb-item ><a href="/">首页</a></el-breadcrumb-item>
   <el-breadcrumb-item><a href="/mycar">购物车</a></el-breadcrumb-item>
