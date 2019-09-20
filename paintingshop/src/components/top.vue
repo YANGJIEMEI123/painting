@@ -23,8 +23,8 @@
       <el-menu-item index="6">
         <router-link to="/login">登陆</router-link>
       </el-menu-item>
-      <el-menu-item index="7">消息通知</a></el-menu-item>
-      <el-menu-item index="8">购物车</a></el-menu-item>
+      <el-menu-item index="7"><a>消息通知</a></el-menu-item>
+      <el-menu-item index="8"><a>购物车</a></el-menu-item>
     </el-menu>
   </div>
 </template>
