@@ -1,0 +1,44 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "258597",
+      "name": "回到顶部",
+      "font_class": "tubiao102",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "774372",
+      "name": "工具",
+      "font_class": "gongju",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "878657",
+      "name": "用户",
+      "font_class": "gouwuche",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "4638891",
+      "name": "人工服务",
+      "font_class": "service",
+      "unicode": "e88d",
+      "unicode_decimal": 59533
+    },
+    {
+      "icon_id": "9928515",
+      "name": "手机",
+      "font_class": "shouji",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    }
+  ]
+}

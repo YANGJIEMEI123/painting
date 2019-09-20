@@ -17,6 +17,8 @@ app.use('/user', require('./Controller/UserController'));
 app.use('changed',require('./Controller/ChangedController'));
 app.use('/cate', require('./Controller/CateController'));
 
+app.use('/IMG', express.static(__dirname+'/IMG'));
+
 app.listen(8081, () => {
     console.log('Example app listening on port 8081!');
 });
