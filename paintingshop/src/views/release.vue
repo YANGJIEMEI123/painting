@@ -16,10 +16,10 @@
     <el-input v-model="ruleForm.drawer"></el-input>
   </el-form-item >
 
-  <el-form-item label="国籍" prop="value1" :rules="[
+  <el-form-item label="国籍" prop="nation" :rules="[
       { required: true, message: '请选择国籍'}
     ]">
-   <el-select v-model="ruleForm.value1" placeholder="请选择国籍">
+   <el-select v-model="ruleForm.nation" placeholder="请选择国籍">
     <el-option
       v-for="item in options1"
       :key="item.value"
@@ -28,10 +28,10 @@
     </el-option>
   </el-select>
    </el-form-item>
-<el-form-item label="类型" prop="value" :rules="[
+<el-form-item label="类型" prop="type" :rules="[
       { required: true, message: '请选择类型'}
     ]">
-   <el-select v-model="ruleForm.value" placeholder="请选择作品类型">
+   <el-select v-model="ruleForm.type" placeholder="请选择作品类型">
     <el-option
       v-for="item in options"
       :key="item.value"
@@ -64,7 +64,7 @@
 
 <el-upload  
   class="upload-demo" prop="filelist"
-  action="https://jsonplaceholder.typicode.com/posts/"
+  action="http://localhost:8081/getImg"
   :on-preview="handlePreview"
   :on-remove="handleRemove"
   :before-remove="beforeRemove"
@@ -106,6 +106,7 @@ el-form-item{
  
 </style>
 <script>
+
   export default {
     data() {
  var checkprice = (rule, value, callback) => {
@@ -140,16 +141,16 @@ el-form-item{
           label: '漆画'
         }],
            options1: [{
-          value: '1',
+          value: '中国',
           label: '中国'
         }, {
-          value: '2',
+          value: '美国',
           label: '美国'
         }, {
-          value: '3',
+          value: '法国',
           label: '法国'
         }, {
-          value: '4',
+          value: '英国',
           label: '英国'
         }],
         ruleForm: {
@@ -159,10 +160,9 @@ el-form-item{
         //   nation:'',
           price:'',
           stock:'',
-          value:'',
-          value1: '',
+         nation:'',
+         type: '',
         descripe:'',
-        imgs:'',
         fileList:''
    
         },
@@ -180,8 +180,19 @@ el-form-item{
    
    methods: {
      handleSuccess(response, file, fileList){
-       console.log(response, file, fileList)
-      //  this.ruleForm.fileList=""
+      console.log(this.ruleForm.type);
+      var wj;
+     switch(this.ruleForm.type){
+       case 1:wj="oil"
+       break;
+        case 2:wj="sketch"
+       break;
+        case 3:wj="china"
+       break;
+       default:wj="qi"
+     }
+       console.log("http://localhost:8081/IMG/"+wj+"/"+file.name);
+       this.ruleForm.fileList="http://localhost:8081/IMG/"+wj+"/"+file.name;
      },
       handleRemove(file, fileList) {
         console.log(file, fileList);
@@ -200,7 +211,24 @@ el-form-item{
 
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+              this.axios.post("http://localhost:8081/publish",this.ruleForm)
+            .then(response => {
+              console.log(response.data);
+              if (response.data.msg == "existed") {
+                this.$alert("商品已存在", "发布失败", {
+                  confirmButtonText: "确定",
+                  callback: action => {
+                    // this.$message({
+                    //   type: "info",
+                    //   message: `action: ${action}`
+                    // });
+                  }
+                });
+              }else{
+                  this.$message('发布成功');
+              }
+             
+            })
           } else {
             console.log('error submit!!');
             return false;
