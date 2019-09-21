@@ -13,7 +13,6 @@
    </div>
  </template>
  <script>
- import {GetProduct} from '../../../api/api'
  export default {
    data () {
      return {

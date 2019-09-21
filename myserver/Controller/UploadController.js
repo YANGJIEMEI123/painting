@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
 const router = express.Router();
-let hostname = 'http://localhost:8081';
+let hostname = 'http://localhost:8081/';
 // let upload = multer({ dest: __dirname + '/../IMG/' })
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {

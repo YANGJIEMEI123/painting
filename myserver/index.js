@@ -1,7 +1,6 @@
 const express = require('express');
 const mysql = require("mysql");
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
 const app = express();
 
 // 建立数据库,连接
@@ -13,7 +12,6 @@ let mydb = mysql.createConnection({
     database: "painting"
 })
 mydb.connect();
-
 // 跨域处理
 
 app.use(require('./Tools/cors').cors);
@@ -33,14 +31,14 @@ app.use(function(req,res,next){//允许跨域
     res.setHeader("Access-Control-Allow-Headers","content-type");
 	next();
 })
-var mydb=mysql.createConnection({
-	host:"localhost",
-	port:3307,
-	user:"root",
-	password:"123456",
-	database:"painting"
-})
-mydb.connect();//创建数据库连接
+// var mydb=mysql.createConnection({
+// 	host:"localhost",
+// 	port:3307,
+// 	user:"root",
+// 	password:"123456",
+// 	database:"painting"
+// })
+// mydb.connect();//创建数据库连接
 
 
 
