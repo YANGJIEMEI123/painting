@@ -46,7 +46,14 @@ app.post("/regist",function(req,res){
 	})
 })
 
-
+app.post("/login",function(req,res){
+	var sql="select * from user where account='"+req.body.account+"'";
+	mydb.query(sql,function(err,results){
+         if(results.account==req.body.account && results.passwd==req.body.password){
+			res.json({msg:"登录成功"})
+		}
+	})
+})
 
 app.listen(8081, () => {
     console.log('Example app listening on port 8081!');

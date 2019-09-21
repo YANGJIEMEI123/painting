@@ -128,7 +128,7 @@
 								          });
 							  }else{
 								  this.$message('注册成功');
-								  this.$router.push({ path:'/' })
+								  this.$router.push({ path:'/login' })
 							  }
 						  })
 						  .catch(function (error) {
