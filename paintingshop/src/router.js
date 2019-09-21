@@ -8,6 +8,7 @@ import echarts from './views/echarts.vue'
 import release from './views/release.vue'
 import statistics from './views/statistics.vue'
 import regist from './views/regist.vue'
+import login from './views/login.vue'
 
 Vue.use(Router);
 
@@ -55,6 +56,11 @@ export default new Router({
       path: '/regist',
       name: 'regist',
       component: regist
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
     },
     {
       path: '/about',
