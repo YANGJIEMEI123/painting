@@ -1,7 +1,6 @@
 const express = require('express');
 const mysql = require("mysql");
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
 const app = express();
 
 // 建立数据库,连接
@@ -36,20 +35,42 @@ app.use('/IMG', express.static(__dirname + '/IMG'));
 
 app.get("/lunbo", (req, res) => {
     let sql = "select * from goodstype where 1";
-    console.log(sql)
+    console.log(req)
     mydb.query(sql, (err, results) => {
         console.log(results)
         res.json(results);
     })
 })
 
-app.get("/getOli", (req, res) => {
-    let sql = "select * from goods where 1";
-    console.log(sql)
-    mydb.query(sql, (err, results) => {
-        console.log(results)
-        res.json(results);
-    })
+app.post("/getImgs", (req, res) => {
+    let sql = "select * from goods where typeid=1";
+    console.log(req.body.params.type)
+    if (req.body.params.type == 1) {
+        mydb.query(sql, (err, results) => {
+            // console.log(results)
+            res.json(results);
+        })
+    } else if (req.body.params.type == 2) {
+        sql = "select * from goods where typeid=2";
+        mydb.query(sql, (err, results) => {
+            // console.log(results)
+            res.json(results);
+        })
+    } else if (req.body.params.type == 3) {
+        sql = "select * from goods where typeid=3";
+        mydb.query(sql, (err, results) => {
+            // console.log(results)
+            res.json(results);
+        })
+    } else if (req.body.params.type == 4) {
+        sql = "select * from goods where typeid=4";
+        mydb.query(sql, (err, results) => {
+            // console.log(results)
+            res.json(results);
+        })
+    }else{
+        console.log("数据请求错误")
+    }
 })
 
 app.post('/publish', function (req, res) {
