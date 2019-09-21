@@ -64,7 +64,7 @@
 
 <el-upload  
   class="upload-demo" prop="filelist"
-  action="http://localhost:8081/getImg"
+  action="http://localhost:8081/upload"
   :on-preview="handlePreview"
   :on-remove="handleRemove"
   :before-remove="beforeRemove"
@@ -180,19 +180,27 @@ el-form-item{
    
    methods: {
      handleSuccess(response, file, fileList){
-      console.log(this.ruleForm.type);
-      var wj;
-     switch(this.ruleForm.type){
-       case 1:wj="oil"
-       break;
-        case 2:wj="sketch"
-       break;
-        case 3:wj="china"
-       break;
-       default:wj="qi"
-     }
-       console.log("http://localhost:8081/IMG/"+wj+"/"+file.name);
-       this.ruleForm.fileList="http://localhost:8081/IMG/"+wj+"/"+file.name;
+      console.log(response.data.src, file, fileList);
+     
+  //     this.axios.get('http://localhost:8081/IMG')
+  // .then(function (res) {
+  //   console.log(res);
+  // })
+  // .catch(function (error) {
+  //   console.log(error);
+  // });
+    //   var wj;
+    //  switch(this.ruleForm.type){
+    //    case 1:wj="oil"
+    //    break;
+    //     case 2:wj="sketch"
+    //    break;
+    //     case 3:wj="china"
+    //    break;
+    //    default:wj="qi"
+    //  }
+      //  console.log(file.name);
+       this.ruleForm.fileList=response.data.src;
      },
       handleRemove(file, fileList) {
         console.log(file, fileList);

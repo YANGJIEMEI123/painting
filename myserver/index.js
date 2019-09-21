@@ -51,19 +51,8 @@ app.post('/publish',function(req,res){
        
     })
 });
-app.post('/getImg',function(req,res){
-    let sql=`insert into goods(img) values('${req.body.fileList}')`;
-    mydb.query(sql,function(err,results){
-        console.log(sql);
-        if(err){
-            console.log(" img error")
-            return;
-        }
-        res.json(results);
-      })
-})
 
-//不用子路由,直接在/后面添路径
+app.use('/upload', require('./Controller/UploadController'));
 app.use('/IMG', express.static(__dirname+'/IMG'));
 
 app.listen(8081, () => {
