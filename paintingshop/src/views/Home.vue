@@ -5,15 +5,15 @@
       <div></div>
       <div class="search">
         <input type="text" placeholder="      请输入商品名称">
-        
+
         <div class="word">搜索</div>
       </div>
     </div>
     <div class="body">
       <!-- 轮播图 -->
       <el-carousel indicator-position="outside">
-        <el-carousel-item v-for="item in 4" :key="item">
-          <h3>{{ item }}</h3>
+        <el-carousel-item v-for="item in lunbos" :key="item">
+         <img src="item" alt="">{{item}}
         </el-carousel-item>
       </el-carousel>
       <!-- 分类列表 -->
@@ -23,22 +23,14 @@
         <el-breadcrumb-item>漆画</el-breadcrumb-item>
         <el-breadcrumb-item>国画</el-breadcrumb-item>
       </el-breadcrumb>
-      <!-- 图片列表 -->
+      <!-- 图片列表 --> 
       <div class="demo-image">
-        <div class="block" v-for="url in urls">
-          <el-image style="width: 280px; height: 280px" :src="url"></el-image>
+        <div class="i" v-for="url in urls">
+          <el-image style="width: 240px; height: 240px" :src="url"></el-image>
         </div>
+        <div class="w" v-for="name in names">{{name}}</div>
       </div>
-      <div class="demo-image">
-        <div class="block" v-for="url in urls">
-          <el-image style="width: 280px; height: 280px" :src="url"></el-image>
-        </div>
-      </div>
-      <div class="demo-image">
-        <div class="block" v-for="url in urls">
-          <el-image style="width: 280px; height: 280px" :src="url"></el-image>
-        </div>
-      </div>
+
     </div>
     <bottoms></bottoms>
   </div>
@@ -55,8 +47,39 @@
     },
     data() {
       return {
-        urls: ["../assets/l/1,jpg", "../assets/l/1,jpg", "../assets/l/1,jpg", "../assets/l/1,jpg"]
+        urls: [],
+        names: [],
+        lunbos:[]
       }
+    },
+    created: function () {
+      this.axios.get('/getOli') //发起请求
+        .then((response) => {
+          console.log(response.data)
+          response.data.forEach(element => {
+            if (element.typeid == 1) {
+              console.log(element)
+              this.urls.push(element.img);
+              this.names.push(element.name)
+            }
+          });
+          console.log(this.urls);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        this.axios.get('/lunbo') //发起请求
+        .then((response) => {
+          console.log(response.data);
+          response.data.forEach(element => {
+            this.lunbos.push(element.img)
+          });
+         
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   }
 </script>
@@ -129,12 +152,23 @@
   .demo-image {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    margin-top:30px;
+    justify-content: start;
+    margin-top: 30px;
+    flex-wrap: wrap;
+
   }
 
   img {
     width: 90%;
     background-size: 100% 100%;
   }
+
+  .i {
+    margin-left: 5px;
+    width: 290px;
+    height: 450px;
+    /* background-color: rgb(240, 172, 172); */
+    margin-top: 10px;
+  }
+  
 </style>
