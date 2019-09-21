@@ -83,18 +83,17 @@ app.get('/', (req, res) => {
 //不用子路由,直接在/后面添路径
 
 
-app.get("/lunbo", (req, res) => {
+app.get("/getLunbo", (req, res) => {
     let sql = "select * from goodstype where 1";
-    console.log(req)
     mydb.query(sql, (err, results) => {
-        console.log(results)
+        // console.log(results)
         res.json(results);
     })
 })
 
 app.post("/getImgs", (req, res) => {
     let sql = "select * from goods where typeid=1";
-    console.log(req.body.params.type)
+    // console.log(req.body.params.type)
     if (req.body.params.type == 1) {
         mydb.query(sql, (err, results) => {
             // console.log(results)
@@ -122,6 +121,7 @@ app.post("/getImgs", (req, res) => {
         console.log("数据请求错误")
     }
 })
+
 
 app.post('/publish', function (req, res) {
     var sql = "select * from goods where name='" + req.body.name + "'";
