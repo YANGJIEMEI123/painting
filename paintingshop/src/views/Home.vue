@@ -46,7 +46,7 @@
           <li>
             <a href="#" v-on:click="prePage">
               <</a> </li> <li v-for="(item, index) in totalPage">
-                <a href="#" v-on:click="toPage(index)" :class="{active: currentPage==index}">{{ index+1 }}</a>
+                <a href="#" v-on:click="toPage(index) chang" :class="{active: currentPage==index}">{{ index+1 }}</a>
           </li>
           <li>
             <a href="#" v-on:click="nextPage">></a>
@@ -72,6 +72,7 @@
         imgs: [],
         lunbos: [],
         lengths: 0,
+        
         // 总页数
         pageNum: 2,
         // 每页显示的个数
@@ -119,6 +120,9 @@
         this.type = 4;
         this.getIMG();
         console.log("china")
+      },
+      chang:function(){
+
       },
       getIMG: function () {
         this.axios.post('/getImgs', {
@@ -303,7 +307,8 @@
     box-sizing: border-box;
     color: #888;
     font-family: MicrosoftYaHei;
-    margin-top:15px
+    margin-top:15px;
+    margin-bottom:12px;
   }
 
   .demo-image ul>li {
@@ -325,19 +330,20 @@
   .demo-image .price {
     color: #f40;
     font-size: 22px;
-    margin-left:-185px;
+    margin-left:-152px;
   }
   .el-carousel__item:nth-child(2n+1) {
     background-color: rgba(red, green, blue, 0 );
 }
-.demo-image .logo,.logo1{
+.demo-image .logo{
   font-size:24px;
   color: #606266;
   margin-left: 10px;
 }
 .demo-image .logo1{
-  
-  margin-left: -120px;
+  font-size:24px;
+  color: #606266;
+  margin-left: -200px;
  
 }
 </style>
