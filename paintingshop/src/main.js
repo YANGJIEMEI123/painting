@@ -2,11 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-<<<<<<< HEAD
-import axios from 'axios'
-=======
-
->>>>>>> d30798ce1a2769949a45f167a25973ffdfaf2c03
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -15,7 +10,8 @@ import axios from 'axios'
 import bottom from '@/components/bottom.vue'
 import top from '@/components/top.vue'
 
-import "./assets/iconfont/bottom/iconfont"
+import "./assets/iconfont/bottom/iconfont.css"
+import "./assets/iconfont/logo/iconfont.css"
 import echarts from 'echarts'
 
 import  'echarts/theme/dark.js'
