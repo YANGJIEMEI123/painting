@@ -31,6 +31,7 @@ export default {
   name: "indexss",
   data() {
     return {
+        
     };
   },
   created() {
@@ -157,8 +158,4 @@ export default {
   
   }
 };
-
-
-
-
 </script>

@@ -53,7 +53,7 @@ app.post("/regist",function(req,res){
 		if(results.length>0){
 			res.json({msg:"username_has_exited"})
 		}else{
-			let newsql=`insert into user(account,password,nickname) values('${req.body.name}','${req.body.passW}','${req.body.nickname}')`
+			let newsql=`insert into user(account,password,nickname,flag) values('${req.body.name}','${req.body.passW}','${req.body.nickname}','${req.body.flag}')`
 			mydb.query(newsql,function(err,results){
 				if(err){
 					console.log(err);
@@ -70,7 +70,7 @@ app.post("/regist",function(req,res){
 app.post("/login",function(req,res){
 	var sql="select * from user where account='"+req.body.account+"'";
 	mydb.query(sql,function(err,results){
-         if(results.account==req.body.account && results.passwd==req.body.password){
+         if(results.account==req.body.account && results.passwd==req.body.password&&results.flag==req.body.flag){
 			res.json({msg:"登录成功"})
 		}
 	})

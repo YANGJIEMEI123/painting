@@ -2,7 +2,7 @@
   <div class="home">
     <tops></tops>
     <div class="nav">
-      <div></div>
+      <div  v-show="$store.getters.isLogin">{{$store.getters.userAccount}}</div>
       <div class="search">
         <input type="text" placeholder="      请输入商品名称">
 
