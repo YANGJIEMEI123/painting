@@ -68,7 +68,7 @@ export default {
                 console.log(response.data.msg)
               if (response.data.msg == "登录成功") {
                   this.$store.commit("handleAccount", res.data.account);
-                 this.$store.commit("isLogin", true);
+                //  this.$store.commit("isLogin", true);
                  this.$store.commit("handleFlag",res.data.flag);
                 this.$alert("登录成功", {
                   confirmButtonText: "确定",
