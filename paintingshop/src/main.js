@@ -9,6 +9,7 @@ import axios from 'axios'
 
 import bottom from '@/components/bottom.vue'
 import top from '@/components/top.vue'
+import aside from '@/components/aside.vue'
 
 import "./assets/iconfont/bottom/iconfont.css"
 import "./assets/iconfont/logo/iconfont.css"
@@ -34,10 +35,13 @@ Vue.config.productionTip = false
 axios.defaults.baseURL = "http://localhost:8081";
 //向原型上追加通用方法
 
+
+
 // 向原型上追加通用方法
 Vue.prototype.axios = axios;
 Vue.component('bottoms',bottom)
 Vue.component("tops", top)
+Vue.component("asides", aside)
 new Vue({
   router,
   store,
