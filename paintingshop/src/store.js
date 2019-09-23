@@ -1,6 +1,7 @@
 
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { finished } from 'stream'
  
 Vue.use(Vuex)
  
@@ -8,7 +9,8 @@ const actions = {}
 const state = {
   user_account: localStorage.getItem('user_account'),
   flag:localStorage.getItem('usertype'),
-  onlogin:localStorage.getItem('OnLogin')
+  onlogin:localStorage.getItem('OnLogin'),
+  gid:""
 }
 // getters 只会依赖 state 中的成员去更新
 const getters = {
@@ -36,6 +38,13 @@ OnLogin:(state,status)=>{
     state.user_account = '';
     state.flag=null,
     state.onlogin=false
+  },
+  getid:function(state,gid){
+    console.log(gid);
+    state.gid=gid;
+    console.log(state.gid);
+    sessionStorage.setItem("gid",gid)
+    console.log(sessionStorage["gid"]);
   }
  
 }

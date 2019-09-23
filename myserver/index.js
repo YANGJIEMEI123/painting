@@ -156,6 +156,65 @@ app.use('/IMG', express.static(__dirname+'/IMG'));
 
 
 
+app.post('/getmyorder',function(req,res){
+    let sql = `select * from mycar where 1 `;
+    mydb.query(sql,(err,results)=>{
+        if(err){
+            console.log(err);
+            return;
+        }else{
+            console.log(results);
+            res.json(results);
+        }
+    })
+})
+
+
+app.post('/getdetail',function(req,res){
+    let sql = `select * from goods where gid='${req.body.gid}'`;
+    mydb.query(sql,(err,results)=>{
+        if(err){
+            console.log(err);
+            return;
+        }else{
+            console.log(results[0]);
+            res.json(results[0]);
+        }
+    })
+})
+
+app.post('/addcar',function(req,res){
+    console.log(req.body.gid);
+    let sql = `insert into mycar (userid,gid,number) values('73','${req.body.gid}','${req.body.number}')`;
+    mydb.query(sql,(err,results)=>{
+        if(err){
+            console.log(err);
+            return;
+        }else{
+            console.log(results);
+            res.json(results);
+        }
+    })
+})
+
+
+app.post('/getmycar',function(req,res){
+    console.log(req.body.gid);
+    let sql = `select g.name, g.img, g.price,m.number from goods as g ,mycar as m where g.gid=m.gid `;
+    mydb.query(sql,(err,results)=>{
+        if(err){
+            console.log(err);
+            return;
+        }else{
+            console.log(results);
+            res.json(results);
+        }
+    })
+})
+
+
+
+
 app.listen(8081, () => {
     console.log('Example app listening on port 8081!');
 

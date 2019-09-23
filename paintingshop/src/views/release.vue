@@ -86,7 +86,7 @@
 </template>
 <style scoped>
 .all{
-    max-width:500px;
+    min-width:500px;
     position: relative;
     top:0;
     right: 0;
@@ -94,12 +94,12 @@
     left:0;
     margin:auto;
 }
-el-form{
-    max-width:350px;
+.el-form-item{
+    min-width:500px;
    
 }
-el-form-item{
-    max-width:350px;
+el-form-item_content{
+    min-width:500px;
 }
 
 

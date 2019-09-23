@@ -2,7 +2,7 @@
   <div class="home">
     <tops></tops>
     <div class="nav">
-        <!-- <div v-show="$store.getters.userType"><a>欢迎{{$store.getters.userAccount}}</a></div> -->
+     
       <div class="search">
         <input type="text" placeholder="      请输入商品名称">
 
@@ -27,8 +27,8 @@
 
         <!-- 图片列表 -->
         <div class="demo-image">
-          <div class="i" v-for="url in dataShow" :key="url">
-            <el-image style="width: 240px; height: 240px" :src="url.img"></el-image>
+          <div class="i" v-for="(url,index) in dataShow" :key="index">
+            <router-link to="/detail"><el-image style="width: 240px; height: 240px" :src="url.img"  @click="usegid(url)"></el-image></router-link>
             <div class="price">￥{{url.price}}<span class="iconfont icon-99yuanbaoyou logo
               "></span></div>
             <div class="name">{{url.name}}</div>
@@ -40,22 +40,21 @@
             
           </div>
         </div>
-        <div class="page">
-          <ul>
-            <li><a  v-on:click="prePage">
-                </a> 
-            </li> 
-            <li v-for="(item, index) in totalPage" :key="index">
-                <a href="#" v-on: click="toPage(index) chang" :class="{active: currentPage==index}">{{ index+1 }}</a>
-            </li>
-            <li>
-              <a  v-on:click="nextPage">></a>
-            </li>
-          </ul>
-        </div>
       </div>
-      <bottoms></bottoms>
-    <asides></asides>
+      <div class="page">
+        <ul>
+          <li>
+            <a href="#" v-on:click="prePage">
+              </a> </li> <li v-for="(item, index) in totalPage" :key="index">
+                <a href="#" v-on: click="toPage(index) change" :key="index" :class="{active: currentPage==index}">{{ index+1 }}</a>
+          </li>
+          <li>
+            <a href="#" v-on:click="nextPage">></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <bottoms></bottoms>
   </div>
 </template>
 
@@ -73,6 +72,7 @@
         imgs: [],
         lunbos: [],
         lengths: 0,
+        
         // 总页数
         pageNum: 2,
         // 每页显示的个数
@@ -83,8 +83,7 @@
         totalPage: [],
         // 当前显示的数据
         dataShow: [],
-        type: 1,
-        index:-1
+        type: 1
       }
     },
     created: function () {
@@ -122,6 +121,9 @@
         this.getIMG();
         console.log("china")
       },
+      chang:function(){
+
+      },
       getIMG: function () {
         this.axios.post('/getImgs', {
             params: {
@@ -138,7 +140,7 @@
             this.pageNum = Math.ceil(this.imgs.length / this.pageSize);
             // console.log(this.pageNum)
             // 分组
-
+          
             for (var i = 0; i < this.pageNum; i++) {
               this.totalPage[i] = this.imgs.slice(this.pageSize * i, this.pageSize * (i + 1))
             }
@@ -152,18 +154,18 @@
       nextPage: function () {
         if (this.currentPage == this.pageNum - 1) return;
         this.dataShow = this.totalPage[++this.currentPage]
-
       },
       prePage: function () {
         if (this.currentPage == 0) return;
         this.dataShow = this.totalPage[--this.currentPage]
-
       },
       toPage: function (page) {
-        this.currentPage = page;
+        this.currentPage = page
         this.dataShow = this.totalPage[this.currentPage];
-        // this.currentPage == index;
-        console.log(1346)
+      },
+      usegid:function(url) {
+        console.log(url.gid);
+        this.$store.commit("getid",url.gid)
       }
     }
   }
@@ -288,10 +290,8 @@
     cursor: pointer;
     border-radius: 2px;
     margin: 0 5px;
-    text-decoration:none;
   }
-
-  .demo-image ul>li:last-child {
+  .demo-image ul>li:last-child{
     margin-left: 100px;
   }
 
@@ -311,8 +311,8 @@
     box-sizing: border-box;
     color: #888;
     font-family: MicrosoftYaHei;
-    margin-top: 15px;
-    margin-bottom: 12px;
+    margin-top:15px;
+    margin-bottom:12px;
   }
 
   .demo-image ul>li {
@@ -322,43 +322,32 @@
     margin-top: 10px;
   }
 
-  .demo-image .name {
+  .demo-image .name{
     width: 200px;
     height: 20px;
     margin-left: 24px;
     font-size: 14px;
     margin-top: 7px;
-    font-family: arial, 'Hiragino Sans GB', "\5b8b\4f53", sans-serif;
+    font-family: arial,'Hiragino Sans GB',"\5b8b\4f53",sans-serif;
   }
 
   .demo-image .price {
     color: #f40;
     font-size: 22px;
-    margin-left: -152px;
+    margin-left:-152px;
   }
-
   .el-carousel__item:nth-child(2n+1) {
-    background-color: rgba(red, green, blue, 0);
-  }
-
-  .demo-image .logo {
-    font-size: 24px;
-    color: #606266;
-    margin-left: 10px;
-  }
-
-  .demo-image .logo1 {
-    font-size: 24px;
-    color: #606266;
-    margin-left: -200px;
-
-  }
-
-  .active {
-    display: block;
-    width:20px;
-    height: 20px;
-    background-color: rgb(117, 172, 209);
-    border-radius: 2px;
-  }
+    background-color: rgba(red, green, blue, 0 );
+}
+.demo-image .logo{
+  font-size:24px;
+  color: #606266;
+  margin-left: 10px;
+}
+.demo-image .logo1{
+  font-size:24px;
+  color: #606266;
+  margin-left: -200px;
+ 
+}
 </style>

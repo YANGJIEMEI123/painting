@@ -15,7 +15,7 @@
 					<span style="width:150px;display:inline-block">{{good.name}}</span>
 					<span style="width:150px;display:inline-block;margin-left:100px;margin-right:100px">{{good.price}}元</span>
 					<span>
-						<el-input-number v-model="good.num" @change="handleChangeNum(good.id)" label="描述文字" size="small"></el-input-number>
+						<el-input-number v-model="good.number" @change="handleChangeNum(good.id)" label="描述文字" size="small">{{goods.number}}</el-input-number>
 					</span>
 					<span style="width:150px;display:inline-block;margin-left:100px;margin-right:100px">小计： {{good.OnePrice}}元</span>
 				</el-checkbox>
@@ -36,27 +36,7 @@
 	export default {
 		data() {
 			return {
-				goods: [{
-						id: 10,
-						name: "油画",
-						price: 300
-					},
-					{
-						id: 11,
-						name: "花鸟画",
-						price: 250
-					},
-					{
-						id: 12,
-						name: "素描（彩铅）",
-						price: 180
-					},
-					{
-						id: 13,
-						name: "漆画",
-						price: 200
-					},
-				],
+				goods: [],
 				checkAll: false,
 				isIndeterminate: true,
 				checkedGoods: [],
@@ -66,7 +46,7 @@
 		methods: {
 			handleAllChange(val) {
 				console.log(val, "555");
-				this.checkedGoods = val ? goodOptions : [];
+				this.checkedGoods = val ? this.goods : [];
 				this.isIndeterminate = false;
 				if (val) {
 					this.getAllPrice();
@@ -128,7 +108,16 @@
 		},
 		created(){
 			this.goods.filter(it=>it.checked=false)
-		}
+			this.axios
+      .post("/getmycar")
+      .then((response)=>{
+        this.goods= response.data;
+        console.log(this.goods);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+		},	
 	};
 </script>
 <style lang="postcss" scoped>
@@ -147,3 +136,4 @@
 		text-align: left;
 	}
 </style>
+
