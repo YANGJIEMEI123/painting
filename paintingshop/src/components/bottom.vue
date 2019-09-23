@@ -55,7 +55,7 @@
         </div>
     </div>
 </template>
-<style>
+<style slot="">
     * {
         padding: 0;
         margin: 0;
