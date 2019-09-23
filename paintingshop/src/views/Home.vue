@@ -48,7 +48,7 @@
           <!-- 图片列表 -->
           <div class="demo-image">
     
-            <div class="i" v-for="url in dataShow" >
+            <div class="i" v-for="url in dataShow" :key="url">
               <el-image style="width: 240px; height: 240px" :src="url.img"></el-image>
               <div class="price">￥{{url.price}}<span class="iconfont icon-99yuanbaoyou logo
                   "></span></div>
@@ -67,7 +67,7 @@
               <li><a v-on:click="prePage">
                 </a>
               </li>
-              <li v-for="(item, index) in totalPage" >
+              <li v-for="(item, index) in totalPage" :key="index">
                 <a href="#" v-on: click="toPage(index) chang" :class="{active: currentPage==index}">{{ index+1 }}</a>
               </li>
               <li>
