@@ -83,23 +83,45 @@ app.get('/', (req, res) => {
 //不用子路由,直接在/后面添路径
 
 
-app.get("/lunbo", (req, res) => {
+app.get("/getLunbo", (req, res) => {
     let sql = "select * from goodstype where 1";
-    console.log(sql)
     mydb.query(sql, (err, results) => {
-        console.log(results)
+        // console.log(results)
         res.json(results);
     })
 })
 
-app.get("/getOli", (req, res) => {
-    let sql = "select * from goods where 1";
-    console.log(sql)
-    mydb.query(sql, (err, results) => {
-        console.log(results)
-        res.json(results);
-    })
+app.post("/getImgs", (req, res) => {
+    let sql = "select * from goods where typeid=1";
+    // console.log(req.body.params.type)
+    if (req.body.params.type == 1) {
+        mydb.query(sql, (err, results) => {
+            // console.log(results)
+            res.json(results);
+        })
+    } else if (req.body.params.type == 2) {
+        sql = "select * from goods where typeid=2";
+        mydb.query(sql, (err, results) => {
+            // console.log(results)
+            res.json(results);
+        })
+    } else if (req.body.params.type == 3) {
+        sql = "select * from goods where typeid=3";
+        mydb.query(sql, (err, results) => {
+            // console.log(results)
+            res.json(results);
+        })
+    } else if (req.body.params.type == 4) {
+        sql = "select * from goods where typeid=4";
+        mydb.query(sql, (err, results) => {
+            // console.log(results)
+            res.json(results);
+        })
+    }else{
+        console.log("数据请求错误")
+    }
 })
+
 
 app.post('/publish', function (req, res) {
     var sql = "select * from goods where name='" + req.body.name + "'";
@@ -135,5 +157,8 @@ app.use('/IMG', express.static(__dirname+'/IMG'));
 app.listen(8081, () => {
     console.log('Example app listening on port 8081!');
 
+
 });
+
+
 
