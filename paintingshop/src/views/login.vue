@@ -67,15 +67,15 @@ export default {
             .then(response => {
                 console.log(response.data.msg)
               if (response.data.msg == "登录成功") {
-                  this.$store.commit("handleAccount", res.data.account);
-                //  this.$store.commit("isLogin", true);
-                 this.$store.commit("handleFlag",res.data.flag);
+                this.$store.commit("OnLogin",true);
+                  this.$store.commit("handleUserAccount",this.dynamicValidateForm.account);
+                 this.$store.commit("handleFlag",this.dynamicValidateForm.flag);
+                console.log(response.data);
                 this.$alert("登录成功", {
                   confirmButtonText: "确定",
                   callback: action => {}
                 });
                
-
                 this.$router.push({ path: "/" });
               } else {
                 this.$alert("登录失败", {

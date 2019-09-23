@@ -15,13 +15,12 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'home',
       component: Home,
       meta: {
-        isLogin: false//不需要登录就可以查看的页面
+        isLogin: false //不需要登录就可以查看的页面
       }
     },
     {
@@ -32,7 +31,7 @@ export default new Router({
         isLogin: false
       }
     },
-    
+
     {
       path: '/regist',
       name: 'regist',
@@ -52,51 +51,55 @@ export default new Router({
     {
       path: '/mycar',
       name: 'mycar',
-      meta:{
-      title:'mycar',
-      roles:['normal'],
-      isLogin: true
+      meta: {
+        title: 'mycar',
+        roles: ['normal'],
+        isLogin: true //需要权限
       },
       component: mycar
     },
     {
       path: '/myorder',
       name: 'myorder',
-      meta:{
-        title:'myorder',
-        roles:['normal'],
+      meta: {
+        title: 'myorder',
+        roles: ['normal'],
         isLogin: true
-        },
+      },
       component: myorder
     },
     {
       path: '/echarts',
       name: 'echarts',
-      meta:{
-        title:'echarts',
-        roles:['admin'],
+      meta: {
+        title: 'echarts',
+        roles: ['admin'],
         isLogin: true
-        },
+      },
       component: echarts
     },
     {
       path: '/release',
       name: 'release',
-      meta:{
-        title:'release',
-        roles:['admin'],
+      meta: {
+        title: 'release',
+        roles: ['admin'],
         isLogin: true
-        },
+      },
       component: release
     },
-    { path: '*', redirect: '/404', hidden: true }
-   
+    {
+      path: '*',
+      redirect: '/404',
+      hidden: true
+    }
+
   ]
 })
 
 //异步挂载的路由
 //动态需要根据权限加载的路由表
-export const asyncRouterMap=[
-  
-  
+export const asyncRouterMap = [
+
+
 ]
