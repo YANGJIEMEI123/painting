@@ -66,7 +66,8 @@
         width: 100%;
         height: 400px;
         background-color: #F4F4F4;
-        margin: 0 auto;
+        margin: 0 auto ;
+        margin-top: 20px;
     }
 
     .up {
@@ -110,7 +111,7 @@
     }
 
     .up li>span:last-child {
-        font-size: 16px;
+        font-size: 12px;
         width: 100px;
         height: 30px;
         display: block;
