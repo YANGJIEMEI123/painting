@@ -24,7 +24,8 @@
         <router-link to="/login">登陆</router-link>
       </el-menu-item>
       <el-menu-item index="7"><a>消息通知</a></el-menu-item>
-      <el-menu-item index="8"><a>购物车</a></el-menu-item>
+      <el-menu-item index="8" >  <router-link to="/mycar">购物车</router-link></el-menu-item>
+      <el-menu-item index="9"   v-on:click="logout"><a>注销</a></el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -42,6 +43,12 @@
     methods: {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
+      },
+      logout:function(){
+        // console.log(this.$store.getters.userType);
+        this.$store.commit("LoginOut",false);
+         this.$router.push({ path: "/" });
+        
       }
     },
     components: {
@@ -51,6 +58,7 @@
       if (this.$router.path == "reg") {
         this.activeIndex2 = "6"
       }
+     
 
     }
   }

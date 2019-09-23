@@ -7,6 +7,18 @@
 				<el-form-item label="账号" prop="name">
 					<el-input v-model="ruleForm.name"></el-input>
 				</el-form-item>
+				 <el-form-item label="用户类型" prop="flag" :rules="[
+      { required: true, message: '请选择类型'}
+    ]">
+   <el-select v-model="ruleForm.flag" placeholder="请选择类型">
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+  </el-select>
+   </el-form-item>
                 <el-form-item label="昵称" prop="nickname">
 					<el-input v-model="ruleForm.nickname"></el-input>
 				</el-form-item>
@@ -63,11 +75,19 @@
 				}
 			};
 			return {
+				  options: [{
+          value: '1',
+          label: '普通用户'
+        }, {
+          value: '2',
+          label: '管理者'
+        }],
 				ruleForm: {
 					name: '',
 					passW: "",
                     rePassW: "",
-                    nickname:""
+					nickname:"",
+					flag:""
 				},
 				rules: {
 					name: [

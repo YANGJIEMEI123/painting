@@ -6,7 +6,7 @@ import mycar from './views/mycar.vue'
 import myorder from './views/myorder.vue'
 import echarts from './views/echarts.vue'
 import release from './views/release.vue'
-import statistics from './views/statistics.vue'
+// import statistics from './views/statistics.vue'
 import regist from './views/regist.vue'
 import login from './views/login.vue'
 
@@ -15,60 +15,91 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      meta: {
+        isLogin: false //不需要登录就可以查看的页面
+      }
     },
     {
       path: '/detail',
       name: 'detail',
-      component: detail
+      component: detail,
+      meta: {
+        isLogin: false
+      }
+    },
+
+    {
+      path: '/regist',
+      name: 'regist',
+      component: regist,
+      meta: {
+        isLogin: false
+      }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login,
+      meta: {
+        isLogin: false
+      }
     },
     {
       path: '/mycar',
       name: 'mycar',
+      meta: {
+        title: 'mycar',
+        roles: ['normal'],
+        isLogin: true //需要权限
+      },
       component: mycar
+    },
+    {
+      path: '/myorder',
+      name: 'myorder',
+      meta: {
+        title: 'myorder',
+        roles: ['normal'],
+        isLogin: true
+      },
+      component: myorder
     },
     {
       path: '/echarts',
       name: 'echarts',
+      meta: {
+        title: 'echarts',
+        roles: ['admin'],
+        isLogin: true
+      },
       component: echarts
     },
     {
       path: '/release',
       name: 'release',
+      meta: {
+        title: 'release',
+        roles: ['admin'],
+        isLogin: true
+      },
       component: release
     },
-
     {
-      path: '/myorder',
-      name: 'myorder',
-      component: myorder
-    },
-    {
-      path: '/statistics',
-      name: 'statistics',
-      component: statistics
-    },
-    {
-      path: '/regist',
-      name: 'regist',
-      component: regist
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: login
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: '*',
+      redirect: '/404',
+      hidden: true
     }
+
   ]
 })
+
+//异步挂载的路由
+//动态需要根据权限加载的路由表
+export const asyncRouterMap = [
+
+
+]

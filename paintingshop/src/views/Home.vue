@@ -1,65 +1,85 @@
 <template>
-  <div class="home">
-    <tops></tops>
-    <div class="nav">
-      <div></div>
-      <div class="search">
-        <search @myevent="show"></search>
-        <ul>
-          <li v-for="p in products" @click="reget">
-            {{p.name}}
-          </li>
-        </ul>
-      </div>
-      <div class="word" @click="select">搜索</div>
-    </div>
-    <div class="body">
-      <!-- 轮播图 -->
-      <el-carousel indicator-position="outside" class="lun">
-        <el-carousel-item v-for="item in lunbos" :key="item.typeid" id="lun1">
-          <img :src="item.img" class="image">
-        </el-carousel-item>
-      </el-carousel>
-      <!-- 分类列表 -->
-      <div class="menu">
-        <span @click="oil">油画</span> &nbsp;&nbsp;&nbsp; |
-        <span @click="sketch">素描画</span>&nbsp;&nbsp;&nbsp; |
-        <span @click="qi">漆画</span>&nbsp;&nbsp;&nbsp; |
-        <span @click="china">国画</span>
-      </div>
-      <div class="list">
+ <div>
+    <div class="home">
 
-        <!-- 图片列表 -->
-        <div class="demo-image">
-          <div class="i" v-for="url in dataShow">
-            <el-image style="width: 240px; height: 240px" :src="url.img"></el-image>
-            <div class="price">￥{{url.price}}<span class="iconfont icon-99yuanbaoyou logo
-                "></span></div>
-            <div class="name">{{url.name}}</div>
+      </div>
+      <tops></tops>
+      <div class="nav">
+        <div>
+        </div>
+        <div class="search">
+          <search @myevent="show"></search>
+          <ul>
+            <li v-for="p in products" @click="reget">
+              {{p.name}}
+            </li>
+          </ul>
+        </div>
+        <div class="word" @click="select">搜索</div>
+      </div>
+      <div class="body">
+    
+    
+        <!-- <div v-show="$store.getters.userType"><a>欢迎{{$store.getters.userAccount}}</a></div> -->
+    
+      </div>
+      <div class="body">
+        <!-- 轮播图 -->
+        <el-carousel indicator-position="outside" class="lun">
+          <el-carousel-item v-for="item in lunbos" :key="item.typeid" id="lun1">
+            <img :src="item.img" class="image">
+          </el-carousel-item>
+          <div class="search">
+              <input type="text" placeholder="      请输入商品名称">
+        
+              <div class="word">搜索</div>
+            </div>
+        </el-carousel>
+        
+        <!-- 分类列表 -->
+        <div class="menu">
+          <span @click="oil">油画</span> &nbsp;&nbsp;&nbsp; |
+          <span @click="sketch">素描画</span>&nbsp;&nbsp;&nbsp; |
+          <span @click="qi">漆画</span>&nbsp;&nbsp;&nbsp; |
+          <span @click="china">国画</span>
+        </div>
+        <div class="list">
+    
+          <!-- 图片列表 -->
+          <div class="demo-image">
+    
+            <div class="i" v-for="url in dataShow" >
+              <el-image style="width: 240px; height: 240px" :src="url.img"></el-image>
+              <div class="price">￥{{url.price}}<span class="iconfont icon-99yuanbaoyou logo
+                  "></span></div>
+    
+              <div class="name">{{url.name}}</div>
+              <ul>
+                <li>{{url.drawer}}</li>
+                <li>{{url.nationality}}</li>
+              </ul>
+              <span class="iconfont icon-logo-reddit logo1"></span>
+    
+            </div>
+          </div>
+          <div class="page">
             <ul>
-              <li>{{url.drawer}}</li>
-              <li>{{url.nationality}}</li>
+              <li><a v-on:click="prePage">
+                </a>
+              </li>
+              <li v-for="(item, index) in totalPage" >
+                <a href="#" v-on: click="toPage(index) chang" :class="{active: currentPage==index}">{{ index+1 }}</a>
+              </li>
+              <li>
+                <a v-on:click="nextPage">></a>
+              </li>
             </ul>
-            <span class="iconfont icon-logo-reddit logo1"></span>
-
           </div>
         </div>
+        <bottoms></bottoms>
+        <asides></asides>
       </div>
-      <div class="page">
-        <ul>
-          <li><a v-on:click="prePage">
-              <</a> </li> <li v-for="(item, index) in totalPage">
-                <a href="#" v-on: click="toPage(index) chang" :class="{active: currentPage==index}">{{ index+1 }}</a>
-          </li>
-          <li>
-            <a v-on:click="nextPage">></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <bottoms></bottoms>
-    <asides></asides>
-  </div>
+ </div>
 </template>
 
 <script>
@@ -165,7 +185,7 @@
       reget: function () {
         this.getNew();
       },
-      getNew:function(){
+      getNew: function () {
         console.log(this.products);
         this.axios.post('/select', {
             params: {
@@ -234,6 +254,9 @@
     position: relative;
     z-index: 7;
 
+  }
+  .search ul>li:hover{
+    cursor: pointer;
   }
 
   .body {

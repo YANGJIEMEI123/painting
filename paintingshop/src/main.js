@@ -34,6 +34,9 @@ Vue.config.productionTip = false
 //定义全局axios 的公用服务端口
 axios.defaults.baseURL = "http://localhost:8081";
 //向原型上追加通用方法
+
+
+
 // 向原型上追加通用方法
 Vue.prototype.axios = axios;
 Vue.component('bottoms',bottom)
@@ -44,3 +47,35 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+
+
+router.beforeEach((to, from, next) => {
+
+  let getFlag =store.getters.userType /* 这里是判断用户是否登录过，因为在用户登录后会在localStroage内存储Flag=isLogin */
+ console.log("aaaaaa")
+  console.log(to);
+  // console.log(to.meta.roles[0]);
+
+  if(to.meta.isLogin==false){
+    next();
+  }else if(to.meta.isLogin==true){
+    if(to.meta.roles[0]=="normal"&&getFlag==1){
+      // console.log(getFlag);
+      next();
+    }
+    else if(to.meta.roles[0]=="admin"&&getFlag==2){
+        next()
+      }
+      else{
+        console.log("没有权限")
+        return
+      }
+  }
+ 
+
+})
+
+router.afterEach(route => {
+  window.scroll(0, 0)
+})

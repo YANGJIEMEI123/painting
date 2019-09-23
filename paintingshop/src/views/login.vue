@@ -15,6 +15,14 @@
   >
     <el-input v-model="dynamicValidateForm.account"></el-input>
   </el-form-item>
+     <el-select v-model="dynamicValidateForm.flag" placeholder="请选择类型">
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+  </el-select>
   <el-form-item
     prop="passwd"
     label="密码"
@@ -36,9 +44,17 @@
 export default {
   data() {
     return {
+          options: [{
+          value: '1',
+          label: '普通用户'
+        }, {
+          value: '2',
+          label: '管理者'
+        }],
       dynamicValidateForm: {
        passwd :"",
-        account: ""
+        account: "",
+        flag:""
       }
     };
   },
@@ -51,10 +67,15 @@ export default {
             .then(response => {
                 console.log(response.data.msg)
               if (response.data.msg == "登录成功") {
+                this.$store.commit("OnLogin",true);
+                  this.$store.commit("handleUserAccount",this.dynamicValidateForm.account);
+                 this.$store.commit("handleFlag",this.dynamicValidateForm.flag);
+                console.log(response.data);
                 this.$alert("登录成功", {
                   confirmButtonText: "确定",
                   callback: action => {}
                 });
+               
                 this.$router.push({ path: "/" });
               } else {
                 this.$alert("登录失败", {
