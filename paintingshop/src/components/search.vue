@@ -1,7 +1,6 @@
 <template>
     <div>
         <input type="text" placeholder="      请输入商品名称" v-model="kw">
-        
     </div>
 </template>
 <script>
