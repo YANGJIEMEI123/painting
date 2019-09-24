@@ -2,35 +2,29 @@
 
   <div>
     <div class="home">
-
     </div>
     <tops></tops>
-
     <!-- <div v-show="$store.getters.userType"><a>欢迎{{$store.getters.userAccount}}</a></div> -->
 
-  <div class="body">
-    <!-- 轮播图 -->
-    
-    <el-carousel indicator-position="outside" class="lun">
-      <el-carousel-item v-for="item in lunbos" :key="item.typeid" id="lun1">
-        <img :src="item.img" class="image">
-      </el-carousel-item>
-      <div class="search">
-        <input type="text" placeholder="      请输入商品名称">
+    <div class="body">
+      <!-- 轮播图 -->
 
-        <div class="word">搜索</div>
-      </div>
-    </el-carousel>
-    <!-- 搜索栏 -->
-    <div class="nav">
+      <el-carousel indicator-position="outside" class="lun">
+        <el-carousel-item v-for="item in lunbos" :key="item.typeid" id="lun1">
+          <img :src="item.img" class="image">
+        </el-carousel-item>
+
+      </el-carousel>
+      <!-- 搜索栏 -->
+      <div class="nav">
 
         <div>
         </div>
         <div class="search">
-          <search @myevent="show"></search>
+          <search @myevent="show" :msg="keyW"></search>
           <ul>
-            <li v-for="p in products" @click="reget">
-              {{p.name}}
+            <li v-for="p in products" @click="select(p.name)">
+              <span>{{p.name}}</span>
             </li>
           </ul>
         </div>
@@ -38,48 +32,48 @@
       </div>
 
 
-    <!-- 分类列表 -->
-    <div class="menu">
-      <span @click="oil">油画</span> &nbsp;&nbsp;&nbsp; |
-      <span @click="sketch">素描画</span>&nbsp;&nbsp;&nbsp; |
-      <span @click="qi">漆画</span>&nbsp;&nbsp;&nbsp; |
-      <span @click="china">国画</span>
-    </div>
-    <div class="list">
-      <!-- 图片列表 -->
-      <div class="demo-image">
+      <!-- 分类列表 -->
+      <div class="menu">
+        <span @click="oil">油画</span> &nbsp;&nbsp;&nbsp; |
+        <span @click="sketch">素描画</span>&nbsp;&nbsp;&nbsp; |
+        <span @click="qi">漆画</span>&nbsp;&nbsp;&nbsp; |
+        <span @click="china">国画</span>
+      </div>
+      <div class="list">
+        <!-- 图片列表 -->
+        <div class="demo-image">
 
-        <div class="i" v-for="url in dataShow">
-          <el-image style="width: 240px; height: 240px" :src="url.img"></el-image>
-          <div class="price">￥{{url.price}}<span class="iconfont icon-99yuanbaoyou logo
+          <div class="i" v-for="url in dataShow">
+            <el-image style="width: 240px; height: 240px" :src="url.img"></el-image>
+            <div class="price">￥{{url.price}}<span class="iconfont icon-99yuanbaoyou logo
                   "></span></div>
 
-          <div class="name">{{url.name}}</div>
-          <ul>
-            <li>{{url.drawer}}</li>
-            <li>{{url.nationality}}</li>
-          </ul>
-          <span class="iconfont icon-logo-reddit logo1"></span>
+            <div class="name">{{url.name}}</div>
+            <ul>
+              <li>{{url.drawer}}</li>
+              <li>{{url.nationality}}</li>
+            </ul>
+            <span class="iconfont icon-logo-reddit logo1"></span>
 
+          </div>
+        </div>
+        <div class="page">
+          <ul>
+            <li><a v-on:click="prePage">&lt;
+              </a>
+            </li>
+            <li v-for="(item, index) in totalPage">
+              <a href="#" v-on: click="toPage(index) chang" :class="{active: currentPage==index}">{{ index+1 }}</a>
+            </li>
+            <li>
+              <a v-on:click="nextPage">&gt;</a>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="page">
-        <ul>
-          <li><a v-on:click="prePage"><
-            </a>
-          </li>
-          <li v-for="(item, index) in totalPage">
-            <a href="#" v-on: click="toPage(index) chang" :class="{active: currentPage==index}">{{ index+1 }}</a>
-          </li>
-          <li>
-            <a v-on:click="nextPage">></a>
-          </li>
-        </ul>
-      </div>
+      <bottoms></bottoms>
+      <asides></asides>
     </div>
-    <bottoms></bottoms>
-    <asides></asides>
-  </div>
   </div>
 </template>
 
@@ -99,9 +93,8 @@
         imgs: [],
         lunbos: [],
         lengths: 0,
-        
         // 总页数
-        pageNum: 2,
+        pageNum: 1,
         // 每页显示的个数
         pageSize: 12,
         // 当前页
@@ -114,7 +107,8 @@
         type: 1,
 
         index: -1,
-        products: []
+        products: [],
+        keyW: ""
       }
     },
     created: function () {
@@ -131,6 +125,7 @@
         });
     },
     methods: {
+
       oil: function () {
         this.type = 1;
         this.getIMG();
@@ -152,17 +147,15 @@
         this.getIMG();
         console.log("china")
       },
-      chang:function(){
-
-      },
-      getIMG: function () {
+      getIMG: function (type) {
         this.axios.post('/getImgs', {
             params: {
-              type: this.type
+              type: type === false ? undefined : this.type,
+              kw: this.keyW
             }
           }) //发起请求
           .then((response) => {
-            // console.log(response.data)
+            console.log(response.data)
             response.data.forEach(element => {
               this.imgs = response.data;
             });
@@ -177,6 +170,7 @@
             }
             // 取值
             this.dataShow = this.totalPage[this.currentPage];
+            console.log(this.dataShow)
           })
           .catch(function (error) {
             console.log(error);
@@ -184,40 +178,34 @@
       },
       show: function (val) {
         console.log(val)
-        this.products = val;
-        console.log(this.products)
-      },
-      select: function () {
-        this.getNew();
-      },
-      reget: function () {
-        this.getNew();
-      },
-      getNew: function () {
-        console.log(this.products);
-        this.axios.post('/select', {
+        this.keyW = val;
+        this.axios.get('/goods', {
             params: {
-              goods: this.products
+              kw: val
             }
-          }) //发起请求
+          })
           .then((response) => {
-            this.imgs = response.data;
-            console.log(this.imgs);
-            // 总页数
-            // console.log(this.imgs)
-            this.pageNum = Math.ceil(this.imgs.length / this.pageSize);
-            // console.log(this.pageNum)
-            // 分组
-          
-            for (var i = 0; i < this.pageNum; i++) {
-              this.totalPage[i] = this.imgs.slice(this.pageSize * i, this.pageSize * (i + 1))
-            }
-            // 取值
-            this.dataShow = this.totalPage[this.currentPage];
+            // console.log(response.data)
+            // this.goods = response.data;
+            this.products = response.data;
+            console.log(this.products);
+
           })
           .catch(function (error) {
             console.log(error);
           });
+
+
+      },
+      select: function (val) {
+        console.log(val);
+        console.log(this.keyW)
+        this.keyW = typeof (val) == "string" ? val : this.keyW;
+        console.log(this.keyW)
+
+        this.getIMG(false);
+
+        this.products = [];
 
       },
       nextPage: function () {
@@ -232,33 +220,40 @@
         this.currentPage = page
         this.dataShow = this.totalPage[this.currentPage];
       },
-      usegid:function(url) {
+      usegid: function (url) {
         console.log(url.gid);
-        this.$store.commit("getid",url.gid)
+        this.$store.commit("getid", url.gid)
       }
     }
   }
 </script>
 <style>
+  body {
+    background-image: url("../assets/bgc.jpg")
+  }
+
   .nav {
     width: 100%;
     height: 70px;
-    background-color: rgb(231, 220, 220);
+    background-color: rgba(231, 220, 220, 0.6);
     padding-top: 20px;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-bottom: 20px;
+    border-radius: 5px;
   }
 
   .search ul {
-    width: 65.6%;
-    /* border: 1px solid red; */
-    margin-left: 300px;
-    background-color: #fff;
-    /* position: fixed; */
+    width: 67.6%;
+    margin-left: 288px;
     position: relative;
     z-index: 7;
-
+    padding-left: 20px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
   }
 
   .search ul>li:hover {
@@ -305,15 +300,24 @@
     margin-left: 5px;
     width: 290px;
     height: 392px;
-    background-color: #f4f4f4;
+    background-color: #eee;
     margin-top: 10px;
+    opacity: 0.8;
   }
 
   .menu {
+    width: 23%;
+    height: 28px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
     justify-content: start;
     font-size: 18px;
-    margin-top: 36px;
+    margin-top: 15px;
+    background-color: #eee;
+    opacity: 0.9;
   }
 
   .menu span:hover {
@@ -350,7 +354,8 @@
 
     text-decoration: none;
   }
-  .demo-image ul>li:last-child{
+
+  .demo-image ul>li:last-child {
     margin-left: 100px;
   }
 
@@ -370,8 +375,8 @@
     box-sizing: border-box;
     color: #888;
     font-family: MicrosoftYaHei;
-    margin-top:15px;
-    margin-bottom:12px;
+    margin-top: 15px;
+    margin-bottom: 12px;
   }
 
   .demo-image ul>li {
@@ -381,36 +386,39 @@
     margin-top: 10px;
   }
 
-  .demo-image .name{
+  .demo-image .name {
     width: 200px;
     height: 20px;
     margin-left: 24px;
     font-size: 14px;
     margin-top: 7px;
-    font-family: arial,'Hiragino Sans GB',"\5b8b\4f53",sans-serif;
+    font-family: arial, 'Hiragino Sans GB', "\5b8b\4f53", sans-serif;
   }
 
   .demo-image .price {
     color: #f40;
     font-size: 22px;
-    margin-left:-152px;
+    margin-left: -152px;
   }
-  .el-carousel__item:nth-child(2n+1) {
-    background-color: rgba(red, green, blue, 0 );
-}
-.demo-image .logo{
-  font-size:24px;
-  color: #606266;
-  margin-left: 10px;
-}
-.demo-image .logo1{
-  font-size:24px;
-  color: #606266;
-  margin-left: -200px;
- 
-}
 
-   
+  .el-carousel__item:nth-child(2n+1) {
+    background-color: rgba(red, green, blue, 0);
+  }
+
+  .demo-image .logo {
+    font-size: 24px;
+    color: #606266;
+    margin-left: 10px;
+  }
+
+  .demo-image .logo1 {
+    font-size: 24px;
+    color: #606266;
+    margin-left: -200px;
+
+  }
+
+
 
   .demo-image .logo {
     font-size: 24px;
@@ -471,13 +479,11 @@
     margin-left: 300px;
     display: flex;
   }
-  .search>ul>li{
-    /* height: 20px; */
+
+  .search>ul>li {
+    height: 33px;
     width: 95%;
-    background-color: gray;
-    margin-top: 2px solid rgb(177, 53, 53);
-  }
-  .search>ul>li:last-child{
-    margin-bottom: 2px solid rgb(180, 55, 55);
+    text-align: start;
+    background-color: rgb(250, 245, 245);
   }
 </style>
