@@ -1,14 +1,25 @@
 <template>
-<div>
-  <div class="home">
+
+  <div>
+    <!-- <div class="home">
+
+    </div> -->
+    <tops></tops>
+
+    <!-- <div v-show="$store.getters.userType"><a>欢迎{{$store.getters.userAccount}}</a></div> -->
+
+  <div class="body">
+    <!-- 轮播图 -->
     
- <div>
+    <el-carousel indicator-position="outside" class="lun">
+      <el-carousel-item v-for="item in lunbos" :key="item.typeid" id="lun1">
+        <img :src="item.img" class="image">
+      </el-carousel-item>
+     
+    </el-carousel>
+    <!-- 搜索栏 -->
+    <div class="nav">
 
-    
-
-
-      <tops></tops>
-      <div class="nav">
         <div>
         </div>
         <div class="search">
@@ -21,74 +32,51 @@
         </div>
         <div class="word" @click="select">搜索</div>
       </div>
-      <div class="body">
-    
-    
-        <!-- <div v-show="$store.getters.userType"><a>欢迎{{$store.getters.userAccount}}</a></div> -->
-    
-      </div>
-      <div class="body">
-        <!-- 轮播图 -->
-        <el-carousel indicator-position="outside" class="lun">
-          <el-carousel-item v-for="item in lunbos" :key="item.typeid" id="lun1">
-            <img :src="item.img" class="image">
-          </el-carousel-item>
-          <div class="search">
-              <input type="text" placeholder="      请输入商品名称">
-        
-              <div class="word">搜索</div>
-            </div>
-        </el-carousel>
-        
-        <!-- 分类列表 -->
-        <div class="menu">
-          <span @click="oil">油画</span> &nbsp;&nbsp;&nbsp; |
-          <span @click="sketch">素描画</span>&nbsp;&nbsp;&nbsp; |
-          <span @click="qi">漆画</span>&nbsp;&nbsp;&nbsp; |
-          <span @click="china">国画</span>
-        </div>
 
 
- <div class="list">
+    <!-- 分类列表 -->
+    <div class="menu">
+      <span @click="oil">油画</span> &nbsp;&nbsp;&nbsp; |
+      <span @click="sketch">素描画</span>&nbsp;&nbsp;&nbsp; |
+      <span @click="qi">漆画</span>&nbsp;&nbsp;&nbsp; |
+      <span @click="china">国画</span>
+    </div>
+    <div class="list">
+      <!-- 图片列表 -->
+      <div class="demo-image">
 
-        <!-- 图片列表 -->
-        <div class="demo-image">
-          <div class="i" v-for="(url,index) in dataShow" :key="index">
-            <router-link to="/detail"><el-image style="width: 240px; height: 240px" :src="url.img"  @click="usegid(url)"></el-image></router-link>
-            <div class="price">￥{{url.price}}<span class="iconfont icon-99yuanbaoyou logo
-              "></span></div>
-            <div class="name">{{url.name}}</div>
-            <ul>
-              <li>{{url.drawer}}</li>
-              <li>{{url.nationality}}</li>
-            </ul>
-            <span class="iconfont icon-logo-reddit logo1"></span>
-            
-          </div>
+        <div class="i" v-for="url in dataShow" :key="url.gid">
+          <el-image style="width: 240px; height: 240px" :src="url.img"></el-image>
+          <div class="price">￥{{url.price}}<span class="iconfont icon-99yuanbaoyou logo
+                  "></span></div>
+
+          <div class="name">{{url.name}}</div>
+          <ul>
+            <li>{{url.drawer}}</li>
+            <li>{{url.nationality}}</li>
+          </ul>
+          <span class="iconfont icon-logo-reddit logo1"></span>
+
         </div>
       </div>
       <div class="page">
         <ul>
-          <li>
-            <a href="#" v-on:click="prePage">
-              </a> </li> <li v-for="(item, index) in totalPage" :key="index">
-                <a href="#" v-on: click="toPage(index) change" :key="index" :class="{active: currentPage==index}">{{ index+1 }}</a>
+          <li><a v-on:click="prePage">&gl;
+            </a>
+          </li>
+          <li v-for="(item, index) in totalPage" :key=index>
+            <a href="#" v-on: click="toPage(index) chang" :class="{active: currentPage==index}"{{ index+1 }}</a>
           </li>
           <li>
-            <a href="#" v-on:click="nextPage">></a>
+            <a v-on:click="nextPage">></a>
           </li>
         </ul>
       </div>
-
-
-
-       
-        <bottoms></bottoms>
-        <asides></asides>
-      </div>
- </div>
-</div>
-</div>
+    </div>
+    <bottoms></bottoms>
+    <asides></asides>
+  </div>
+  </div>
 </template>
 
 <script>
@@ -193,6 +181,7 @@
       show: function (val) {
         console.log(val)
         this.products = val;
+        console.log(this.products)
       },
       select: function () {
         this.getNew();
@@ -208,11 +197,8 @@
             }
           }) //发起请求
           .then((response) => {
-            response.data.forEach(element => {
-              this.imgs = [];
-              this.imgs.push(element.img);
-              console.log(this.imgs);
-            });
+            this.imgs = response.data;
+            console.log(this.imgs);
             // 总页数
             // console.log(this.imgs)
             this.pageNum = Math.ceil(this.imgs.length / this.pageSize);
@@ -261,7 +247,7 @@
   }
 
   .search ul {
-    width: 50%;
+    width: 65.6%;
     /* border: 1px solid red; */
     margin-left: 300px;
     background-color: #fff;
@@ -270,7 +256,8 @@
     z-index: 7;
 
   }
-  .search ul>li:hover{
+
+  .search ul>li:hover {
     cursor: pointer;
   }
 
@@ -480,4 +467,11 @@
     margin-left: 300px;
     display: flex;
   }
+  .search>ul>li{
+    /* height: 20px; */
+    width: 95%;
+    background-color: gray;
+    margin-top: 2px solid rgb(177, 53, 53);
+  }
+  
 </style>
