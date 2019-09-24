@@ -46,7 +46,7 @@
       <div class="demo-image">
 
         <div class="i" v-for="url in dataShow" :key="url.gid">
-          <el-image style="width: 240px; height: 240px" :src="url.img"></el-image>
+          <router-link to="/detail"><el-image style="width: 240px; height: 240px" :src="url.img"  @click="usegid(url)"></el-image></router-link>
           <div class="price">￥{{url.price}}<span class="iconfont icon-99yuanbaoyou logo
                   "></span></div>
 
@@ -65,7 +65,7 @@
             </a>
           </li>
           <li v-for="(item, index) in totalPage" :key=index>
-            <a href="#" v-on: click="toPage(index) chang" :class="{active: currentPage==index}"{{ index+1 }}</a>
+            <a href="#" v-on: click="toPage(index) chang" :class="{active: currentPage==index}">{{ index+1 }}</a>
           </li>
           <li>
             <a v-on:click="nextPage">></a>

@@ -17,10 +17,10 @@
         v-show="$store.getters.loginstatus==true"
       >欢迎{{$store.getters.userAccount}}</el-menu-item>
       <el-menu-item index="3">
-        <router-link to="/regist" v-if="myregist">注册</router-link>
+        <router-link to="/regist" v-show="!($store.getters.userType==1||$store.getters.userType==2)">注册</router-link>
       </el-menu-item>
       <el-menu-item index="4">
-        <router-link to="/login" v-if="mylogin">登录</router-link>
+        <router-link to="/login" v-show="!($store.getters.userType==1||$store.getters.userType==2)">登录</router-link>
       </el-menu-item>
       <el-menu-item index="5">
         <a>消息通知</a>
@@ -55,19 +55,11 @@ export default {
   name: "app",
   data: function() {
     return {
-      myregist: true,
-      mylogin: true,
       activeIndex: "1",
       activeIndex2: "1"
     };
   },
   methods: {
-    changeStatus() {
-      if (this.$store.getters.loginstatus == true) {
-        this.myregist=false;
-        this.mylogin=false;
-      }
-    },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },

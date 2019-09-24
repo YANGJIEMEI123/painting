@@ -24,53 +24,54 @@
 </template>
 <style>
 	.all{
-		display: flex;
-		justify-content: center;
+		margin-top:50px; 
 	}
 	.div1 {
-		width: 200px;
-		height: 200px;
-		/* background-image: url({{da.img}}); */
+		width: 350px;
+		height: 350px;
 		background-size: 100% 100%;
 		position: absolute;
-		left: 200px;
+		left: 150px;
 		top: 100px;
 	}
 
 	.mask {
-		width: 50px;
-		height: 50px;
+		width: 100px;
+		height: 100px;
 		background-color: rgba(255, 255, 180, 0.4);
 		position: absolute;
 		display: none;
 	}
 
 	.rightdiv {
-		width: 300px;
-		height: 300px;
+		width: 410px;
+		height: 410px;
 		position: absolute;
-		left: 500px;
+		left: 550px;
 		top: 100px;
 		overflow: hidden;
 		display: none;
+		z-index: 2000;
 	}
 
 	.bigimg {
-		width: 1656px;
-		height: 1920px;
-		/* background-image: url(https://ss2.bdstatic.com/8_V1bjqh_Q23odCf/pacific/1789306612.jpg); */
+		width: 2100px;
+		height: 2100px;
 		background-size: 100% 100%;
 		position: absolute;
 	}
 	.right {
-		width: 500px;
-		height: 500px;
+		width: 400px;
+		height: 400px;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 		margin-left: 50px;
+		position: absolute;
+		left: 500px;
+		top:100px;
 		padding: 10px;
-		background-color: #C2E7B0;
+		/* background-color: #C2E7B0; */
 	}
 	
 	.one {
@@ -78,10 +79,11 @@
 		justify-content: space-between;
 	}
 	.aa{
-		margin-right: -230px;
+		margin-right: -135px;
 	}
 	.bb{
 		margin-right: 60px;
+		display:inline-block;
 	}
 	.three {
 		display: flex;
@@ -97,8 +99,12 @@
 		padding: 3px;
 	}
 	.number{
-		width:400px;
+		width:300px;
 		display: inline-block;
+	}
+	.block{
+		display: flex;
+		align-items: center;
 	}
 	.btn1{
 		width: 134px;
@@ -185,11 +191,14 @@
 				this.bigimg.style.top = -y * 6 + "px";
 			},
 			addcar:function(){
+                if(this.$store.getters.userType==2){
+                    alert("您没有该权限");
+                }
 				console.log(this.value1);
 				this.axios
       .post("/addcar",{gid:sessionStorage['gid'],userid:localStorage.getItem("user_account"),number:this.value1})
       .then((response)=>{
-        this.da = response.data;
+        // this.da = response.data;
         console.log(this.da);
       })
       .catch(function(error) {

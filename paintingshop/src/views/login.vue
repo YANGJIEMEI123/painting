@@ -2,9 +2,7 @@
   <div>
     <tops></tops>
     <div class="login">
-      <div class="lo">
-        <h3>登录</h3>
-      </div>
+     <div class="overstyle"></div>
       <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
   <el-form-item
     prop="account"
@@ -115,12 +113,64 @@ export default {
 };
 </script>
 
-<style>
-.login {
-  width: 40%;
-  margin: 100px auto;
+<style scoped>
+.login{
+  width:100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  margin: 0px auto;
+  background: url("../assets/back1.jpg") no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  overflow: hidden;
 }
-.lo {
-  margin-bottom: 30px;
+.el-form{
+	z-index: 10;
+	position: absolute;
+	top:160px;
+	margin:0 auto;
+}
+.el-form-item{
+	width:460px;
+}
+.el-form-item__label{
+	color:#fff !important;
+}
+.el-input__inner{
+	background-color: transparent !important;
+		color:#fff !important;
+}
+.el-input{
+	color:#fff !important;
+}
+input:focus{border-color:#12c6d3 !important;}
+.overstyle {
+  width: 100%;
+  height:500px;
+  /* height: auto; */
+  background: #000000;
+  opacity: 0.5;
+  position: relative;
+  z-index: 10;
+  /* top: -500px; */
+}
+.el-button--primary {
+    color: #FFF;
+   
+	background-color:transparent !important;
+    border-color: #12c6d3 !important;
+}
+.el-button--primary:hover{
+ background-color: #12c6d3 !important;
+
+}
+.el-button--default{
+		background-color:transparent !important;
+		color:#fff !important;
+}
+.el-button--default:hover{
+	background-color:#fff !important;
+	color: #12c6d3 !important;
 }
 </style>
