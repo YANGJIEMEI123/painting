@@ -115,6 +115,15 @@ export default {
           .catch(function(error) {
             console.log(error);
           });
+          this.axios
+          .post("/updatamycar",element)
+          .then(response => {
+            this.reload();
+            console.log(response);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
       });
 
       this.$alert(this.allPrice + "元", "所有商品总计", {

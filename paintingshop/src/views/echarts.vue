@@ -5,14 +5,16 @@
          <div id="main" style="width:50%;height:300px;"></div>
          <div id="stock" style="width:50%;height:300px;"></div>
    </div>
+   <bottoms></bottoms>
 </div>
 </template>
 <style scoped>
 .indexs{
-    padding:50px;
+    padding:150px 50px;
     display:flex;
     justify-content:space-between;
     background-color: #333333;
+    height:300px;
 }
 </style>
 <script >

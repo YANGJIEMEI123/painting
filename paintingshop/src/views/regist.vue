@@ -11,7 +11,7 @@
         label-width="100px"
         class="demo-ruleForm"
       >
-        <el-form-item label="账号" prop="name">
+        <el-form-item id="a1" label="账号" prop="name">
           <el-input v-model="ruleForm.name"></el-input>
         </el-form-item>
         <el-form-item
@@ -210,7 +210,7 @@ export default {
 .el-form-item{
 	width:460px;
 }
-.el-form-item__label{
+#a1 .el-form-item__label{
 	color:#fff !important;
 }
 .el-input__inner{
@@ -220,12 +220,15 @@ export default {
 .el-input{
 	color:#fff !important;
 }
+.el-select{
+  width:360px;
+}
 input:focus{border-color:#12c6d3 !important;}
 .overstyle {
   width: 100%;
   height:500px;
   /* height: auto; */
-  background: #00000090;
+  background: #00000030;
   position: relative;
   z-index: 10;
   /* top: -500px; */
@@ -248,5 +251,8 @@ input:focus{border-color:#12c6d3 !important;}
 	background-color:#fff !important;
 	color: #12c6d3 !important;
 }
+
+</style>
+<style>
 
 </style>

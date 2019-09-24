@@ -16,7 +16,7 @@
     <el-input v-model="ruleForm.drawer"></el-input>
   </el-form-item >
 
-  <el-form-item label="国籍" prop="nation" :rules="[
+  <el-form-item  label="国籍" prop="nation" :rules="[
       { required: true, message: '请选择国籍'}
     ]">
    <el-select v-model="ruleForm.nation" placeholder="请选择国籍">
@@ -86,7 +86,7 @@
 </template>
 <style scoped>
 .all{
-    min-width:500px;
+  width:500px;
     position: relative;
     top:0;
     right: 0;
@@ -97,6 +97,9 @@
 .el-form-item{
     min-width:500px;
    
+}
+.el-select{
+  width:450px;
 }
 el-form-item_content{
     min-width:500px;
