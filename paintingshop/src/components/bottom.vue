@@ -64,9 +64,10 @@
 
     .f {
         width: 100%;
-        height: 400px;
-        background-color: #F4F4F4;
-        margin: 0 auto ;
+        height: 380px;
+        background-color: #f4f4f4;
+        opacity: 0.8;
+        margin: 0 auto;
         margin-top: 20px;
     }
 
@@ -128,8 +129,10 @@
 
     .son>ul>li {
         margin-top: 20px;
+        color: rgb(63, 50, 23);
     }
-    .son>ul>li:hover{
+
+    .son>ul>li:hover {
         cursor: pointer;
         transform: scale(1.4);
         transition: all 0.6s;

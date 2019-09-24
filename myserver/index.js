@@ -92,39 +92,31 @@ app.get("/getLunbo", (req, res) => {
 })
 
 app.post("/getImgs", (req, res) => {
-    let sql = "select * from goods where typeid=1";
-    // console.log(req.body.params.type)
-    if (req.body.params.type == 1) {
-        mydb.query(sql, (err, results) => {
-            // console.log(results)
-            res.json(results);
-        })
-    } else if (req.body.params.type == 2) {
-        sql = "select * from goods where typeid=2";
-        mydb.query(sql, (err, results) => {
-            // console.log(results)
-            res.json(results);
-        })
-    } else if (req.body.params.type == 3) {
-        sql = "select * from goods where typeid=3";
-        mydb.query(sql, (err, results) => {
-            // console.log(results)
-            res.json(results);
-        })
-    } else if (req.body.params.type == 4) {
-        sql = "select * from goods where typeid=4";
-        mydb.query(sql, (err, results) => {
-            // console.log(results)
-            res.json(results);
-        })
-    } else {
-        console.log("数据请求错误")
+    let sql = "select * from goods where 1 ";
+    console.log(req.body)
+    if (req.body.params.type != undefined) {
+        sql += "and typeid=" + req.body.params.type
     }
+
+    if (req.body.params.kw) {
+        sql += " and name like '" + req.body.params.kw + "'"
+    }
+    mydb.query(sql, (err, results) => {
+        // console.log(results)
+        if (err) {
+            console.log("数据请求错误!")
+            return;
+        }
+        res.json(results);
+    })
+
+    // console.log(req.body.params.type)
+
 })
 app.post("/select", (req, res) => {
     // console.log(req.body.params.goods,777)
     if (typeof (req.body.params.goods) == "object") {
-        console.log(7777)
+        // console.log(7777)
         for (var i = 0; i < req.body.params.goods.length; i++) {
             console.log(req.body.params.goods[i].name);
             let sql = "select * from goods where name='" + req.body.params.goods[i].name + "'";
@@ -191,7 +183,7 @@ app.post('/getmyorder',function(req,res){
         if(err){
             console.log(err);
             return;
-        }else{
+        } else {
             console.log(results);
             res.json(results);
         }
@@ -199,13 +191,13 @@ app.post('/getmyorder',function(req,res){
 })
 
 
-app.post('/getdetail',function(req,res){
+app.post('/getdetail', function (req, res) {
     let sql = `select * from goods where gid='${req.body.gid}'`;
-    mydb.query(sql,(err,results)=>{
-        if(err){
+    mydb.query(sql, (err, results) => {
+        if (err) {
             console.log(err);
             return;
-        }else{
+        } else {
             console.log(results[0]);
             res.json(results[0]);
         }
@@ -261,14 +253,14 @@ app.post('/addcar',function(req,res){
 })
 
 
-app.post('/getmycar',function(req,res){
+app.post('/getmycar', function (req, res) {
     console.log(req.body.gid);
     let sql = `select g.name, g.img, g.price,m.number from goods as g ,mycar as m where g.gid=m.gid `;
-    mydb.query(sql,(err,results)=>{
-        if(err){
+    mydb.query(sql, (err, results) => {
+        if (err) {
             console.log(err);
             return;
-        }else{
+        } else {
             console.log(results);
             res.json(results);
         }
