@@ -1,26 +1,25 @@
 <template>
 <div>
   <tops></tops>
-  <div>
-    <div v-for="(b,index) in blo" :key="index" class="a">
-      <div>{{b.userid}}</div>
-      <div>{{b.gid}}</div>
-      <div>{{b.number}}</div>
-      
-    </div>
+<div class="mydiv">
+    <el-breadcrumb separator="/" class="bread">
+  <el-breadcrumb-item ><a href="/">首页</a></el-breadcrumb-item>
+  <el-breadcrumb-item><a href="/mycar">购物车</a></el-breadcrumb-item>
+  <el-breadcrumb-item>订单中心</el-breadcrumb-item>
+  <el-breadcrumb-item></el-breadcrumb-item>
+</el-breadcrumb><hr>
+  <el-table :data="blo" style="width: 100%" >
+    <el-table-column prop="userid" label="用户" width="180"></el-table-column>
+    <el-table-column prop="name" label="商品名称" width="180"></el-table-column>
+     <el-table-column prop="paynumber" label="数量" width="180"></el-table-column>
+    <el-table-column prop="totalprice" label="金额" width="180"></el-table-column>
+    <el-table-column prop="state" label="状态"></el-table-column>
+  </el-table>
   </div>
-</div>
+  </div>
 </template>
-<style>
-.a {
-  width: 40%;
-  height: 100px;
-  background-color: red;
-  display: flex;
-  justify-content: center;
-}
-</style>
-<script>
+
+ <script>
 export default {
   data() {
     return {
@@ -28,10 +27,14 @@ export default {
     };
   },
   created: function() {
+   console.log(this.blo);
     this.axios
-      .post("/getmyorder")
+      .post("/getmyorder",{a:12})
       .then((response)=>{
         this.blo = response.data;
+        this.blo.forEach(element => {
+          element.state='已支付';
+        });
         console.log(this.blo);
       })
       .catch(function(error) {
@@ -40,5 +43,12 @@ export default {
   }
 };
 </script>
-
-
+<style>
+.bread{
+   margin: 20px 0;
+}
+.mydiv{
+    width: 95%;
+    margin: 0 auto;
+}
+</style>

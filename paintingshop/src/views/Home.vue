@@ -4,6 +4,7 @@
     <tops></tops>
     <div class="body">
       <!-- 轮播图 -->
+
       <el-carousel indicator-position="outside" class="lun">
         <el-carousel-item v-for="item in lunbos" :key="item.typeid" id="lun1">
           <img :src="item.img" class="image">
@@ -26,7 +27,7 @@
 
       <!-- 分类列表 -->
       <div class="menu">
-        <span @click="oil">油画</span> 
+        <span @click="oil">油画</span>
         <span @click="sketch">素描画</span>
         <span @click="qi">漆画</span>
         <span @click="china">国画</span>
@@ -35,11 +36,8 @@
         <!-- 图片列表 -->
         <div class="demo-image">
           <div class="i" v-for="url in dataShow" :key="url.gid">
-            <el-image style="width: 240px; height: 240px" :src="url.img"></el-image>
-            <div class="price">￥{{url.price}}<span class="iconfont icon-99yuanbaoyou logo
-
-                  "></span></div>
-
+              <router-link to="/detail"><el-image style="width: 240px; height: 240px" :src="url.img"  @click="usegid(url)"></el-image></router-link>
+            <div class="price">￥{{url.price}}<span class="iconfont icon-99yuanbaoyou logo "></span></div>
             <div class="name">{{url.name}}</div>
             <ul>
               <li>{{url.drawer}}</li>
@@ -55,7 +53,7 @@
               </a>
             </li>
             <li v-for="(item, index) in totalPage" :key=index :class="{active: currentPage==index}">
-              <a href="#" v-on: click="toPage(index) chang" >{{ index+1 }}</a>
+              <a href="#" v-on: click="toPage(index) chang">{{ index+1 }}</a>
             </li>
             <li>
               <a v-on:click="nextPage">&gt;</a>
@@ -215,6 +213,10 @@
       usegid: function (url) {
         console.log(url.gid);
         this.$store.commit("getid", url.gid)
+      },
+      usegid: function (url) {
+        console.log(url.gid);
+        this.$store.commit("getid", url.gid)
       }
     }
   }
@@ -249,7 +251,6 @@
     width: 105.1%;
     position: relative;
     z-index: 7;
-    padding-left: 20px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
   }
@@ -319,6 +320,7 @@
 
   .menu span:hover {
     cursor: pointer;
+    background-color: rgb(216, 215, 175);
   }
 
   .menu span {
@@ -329,10 +331,10 @@
     color: #606266;
     cursor: text;
     font-size: 16px;
-    margin-left: 12px;
   }
-  .menu span:last-child{
-    border-right:0;
+
+  .menu span:last-child {
+    border-right: 0;
   }
 
   .page {
@@ -469,10 +471,11 @@
   .word:hover {
     cursor: pointer;
   }
-  
-  .search{
+
+  .search {
     width: 460px;
   }
+
   .search>div {
     width: 500px;
     /* margin-left: 300px; */
@@ -484,22 +487,23 @@
     text-align: start;
     background-color: rgb(250, 245, 245);
   }
-  input {
-        width: 100%;
-        height: 40px;
-        box-sizing: border-box;
-        border-top-left-radius: 50px;
-        border-bottom-left-radius: 50px;
-        background-color: #eee;
-        border-color: #ddd;
-        box-sizing: border-box;
-        margin-top: 0px;
-        border-block-start-color: #444;
-        border: 0;
-        text-indent: 20px;
-    }
 
-    input:focus {
-        outline: none;
-    }
+  input {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background-color: #eee;
+    border-color: #ddd;
+    box-sizing: border-box;
+    margin-top: 0px;
+    border-block-start-color: #444;
+    border: 0;
+    text-indent: 20px;
+  }
+
+  input:focus {
+    outline: none;
+  }
 </style>

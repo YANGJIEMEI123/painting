@@ -7,10 +7,10 @@
       </el-menu-item>
       <el-menu-item index="2" v-show="$store.getters.loginstatus==true">欢迎{{$store.getters.userAccount}}</el-menu-item>
       <el-menu-item index="3">
-        <router-link to="/regist" v-if="myregist">注册</router-link>
+        <router-link to="/regist" v-show="!($store.getters.userType==1||$store.getters.userType==2)">注册</router-link>
       </el-menu-item>
       <el-menu-item index="4">
-        <router-link to="/login" v-if="mylogin">登录</router-link>
+        <router-link to="/login" v-show="!($store.getters.userType==1||$store.getters.userType==2)">登录</router-link>
       </el-menu-item>
       <div class="right1">
         <el-menu-item index="5">
@@ -65,6 +65,7 @@
           path: "/"
         });
       }
+      // @ is an alias to /src
     },
     components: {},
     created: function () {
@@ -99,7 +100,7 @@
   .right1 {
     position: absolute;
     right: 10px;
-    top:3px;
+    top: 3px;
     display: flex;
   }
 
@@ -107,5 +108,4 @@
     text-decoration: none;
     color: white;
   }
-  
 </style>
