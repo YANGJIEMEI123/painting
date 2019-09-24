@@ -11,7 +11,7 @@
         <div class="cd"><span class="iconfont icon-service" id="logo3"></span>
             <div class="box">售后服务</div>
         </div>
-        <div><a href="backtop"><span class="iconfont icon-tubiao102" id="logo4"></span></a></div>
+        <div><a href="#top"><span class="iconfont icon-tubiao102" id="logo4"></span></a></div>
     </div>
 </template>
 <style scoped>
@@ -24,7 +24,7 @@
         height: 245px;
         background-color: #bbb;
         position: fixed;
-        right: 20px;
+        right: 15px;
         bottom: 10px;
         z-index: 9;
         border-radius:7px;

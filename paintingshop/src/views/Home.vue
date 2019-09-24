@@ -1,29 +1,55 @@
 <template>
+<div>
   <div class="home">
-    <tops></tops>
-    <div class="nav">
-     
-      <div class="search">
-        <input type="text" placeholder="      请输入商品名称">
+    
+ <div>
 
-        <div class="word">搜索</div>
+    
+
+
+      <tops></tops>
+      <div class="nav">
+        <div>
+        </div>
+        <div class="search">
+          <search @myevent="show"></search>
+          <ul>
+            <li v-for="p in products" @click="reget">
+              {{p.name}}
+            </li>
+          </ul>
+        </div>
+        <div class="word" @click="select">搜索</div>
       </div>
-    </div>
-    <div class="body">
-      <!-- 轮播图 -->
-      <el-carousel indicator-position="outside">
-        <el-carousel-item v-for="item in lunbos" :key="item.typeid">
-          <img :src="item.img" class="image">
-        </el-carousel-item>
-      </el-carousel>
-      <!-- 分类列表 -->
-      <div class="menu">
-        <span @click="oil">油画</span> &nbsp;&nbsp;&nbsp; |
-        <span @click="sketch">素描画</span>&nbsp;&nbsp;&nbsp; |
-        <span @click="qi">漆画</span>&nbsp;&nbsp;&nbsp; |
-        <span @click="china">国画</span>
+      <div class="body">
+    
+    
+        <!-- <div v-show="$store.getters.userType"><a>欢迎{{$store.getters.userAccount}}</a></div> -->
+    
       </div>
-      <div class="list">
+      <div class="body">
+        <!-- 轮播图 -->
+        <el-carousel indicator-position="outside" class="lun">
+          <el-carousel-item v-for="item in lunbos" :key="item.typeid" id="lun1">
+            <img :src="item.img" class="image">
+          </el-carousel-item>
+          <div class="search">
+              <input type="text" placeholder="      请输入商品名称">
+        
+              <div class="word">搜索</div>
+            </div>
+        </el-carousel>
+        
+        <!-- 分类列表 -->
+        <div class="menu">
+          <span @click="oil">油画</span> &nbsp;&nbsp;&nbsp; |
+          <span @click="sketch">素描画</span>&nbsp;&nbsp;&nbsp; |
+          <span @click="qi">漆画</span>&nbsp;&nbsp;&nbsp; |
+          <span @click="china">国画</span>
+        </div>
+
+
+ <div class="list">
 
         <!-- 图片列表 -->
         <div class="demo-image">
@@ -53,19 +79,27 @@
           </li>
         </ul>
       </div>
-    </div>
-    <bottoms></bottoms>
-  </div>
+
+
+
+       
+        <bottoms></bottoms>
+        <asides></asides>
+      </div>
+ </div>
+</div>
 </template>
 
 <script>
   // @ is an alias to /src
   import HelloWorld from '@/components/HelloWorld.vue'
+  import search from '@/components/search.vue'
 
   export default {
     name: 'home',
     components: {
-      HelloWorld
+      HelloWorld,
+      search
     },
     data() {
       return {
@@ -83,7 +117,11 @@
         totalPage: [],
         // 当前显示的数据
         dataShow: [],
-        type: 1
+
+        type: 1,
+
+        index: -1,
+        products: []
       }
     },
     created: function () {
@@ -136,7 +174,46 @@
               this.imgs = response.data;
             });
             // 总页数
-            console.log(this.imgs)
+            // console.log(this.imgs)
+            this.pageNum = Math.ceil(this.imgs.length / this.pageSize);
+            // console.log(this.pageNum)
+            // 分组
+
+            for (var i = 0; i < this.pageNum; i++) {
+              this.totalPage[i] = this.imgs.slice(this.pageSize * i, this.pageSize * (i + 1))
+            }
+            // 取值
+            this.dataShow = this.totalPage[this.currentPage];
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      show: function (val) {
+        console.log(val)
+        this.products = val;
+      },
+      select: function () {
+        this.getNew();
+      },
+      reget: function () {
+        this.getNew();
+      },
+      getNew: function () {
+        console.log(this.products);
+        this.axios.post('/select', {
+            params: {
+              goods: this.products
+            }
+          }) //发起请求
+          .then((response) => {
+            response.data.forEach(element => {
+              this.imgs = [];
+              this.imgs.push(element.img);
+              console.log(this.imgs);
+            });
+            // 总页数
+            // console.log(this.imgs)
             this.pageNum = Math.ceil(this.imgs.length / this.pageSize);
             // console.log(this.pageNum)
             // 分组
@@ -150,6 +227,7 @@
           .catch(function (error) {
             console.log(error);
           });
+
       },
       nextPage: function () {
         if (this.currentPage == this.pageNum - 1) return;
@@ -173,50 +251,31 @@
 <style>
   .nav {
     width: 100%;
-    height: 80px;
+    height: 70px;
     background-color: rgb(231, 220, 220);
     padding-top: 20px;
     box-sizing: border-box;
     display: flex;
+    margin-bottom: 20px;
   }
 
-  input {
-    width: 400px;
-    height: 40px;
-    box-sizing: border-box;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    background-color: #444;
-    border-color: #444;
-    box-sizing: border-box;
-    margin-top: 0px;
-    border-block-start-color: #444;
-    border: 0;
-  }
-
-  .word {
-    width: 96px;
-    height: 41px;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    background-color: #ccdce9;
-    text-align: center;
-    font-size: 16px;
-    color: #fff;
-    line-height: 33px;
-    padding-top: 4px;
-    box-sizing: border-box;
-  }
-
-  .search {
-    width: 500px;
+  .search ul {
+    width: 50%;
+    /* border: 1px solid red; */
     margin-left: 300px;
-    display: flex;
+    background-color: #fff;
+    /* position: fixed; */
+    position: relative;
+    z-index: 7;
+
+  }
+  .search ul>li:hover{
+    cursor: pointer;
   }
 
   .body {
     width: 90%;
-    background-color: rgb(234, 245, 230);
+    /* background-color: rgb(234, 245, 230); */
     margin: 0 auto;
   }
 
@@ -262,6 +321,7 @@
     display: flex;
     justify-content: start;
     font-size: 18px;
+    margin-top: 36px;
   }
 
   .menu span:hover {
@@ -274,6 +334,10 @@
     cursor: text;
     font-size: 16px;
     margin-left: 12px;
+  }
+
+  .page {
+    margin-top: 20px;
   }
 
   .page>ul {
@@ -290,6 +354,9 @@
     cursor: pointer;
     border-radius: 2px;
     margin: 0 5px;
+
+
+    text-decoration: none;
   }
   .demo-image ul>li:last-child{
     margin-left: 100px;
@@ -350,4 +417,66 @@
   margin-left: -200px;
  
 }
+
+   
+
+  .demo-image .logo {
+    font-size: 24px;
+    color: #606266;
+    margin-left: 10px;
+  }
+
+  .demo-image .logo1 {
+    font-size: 24px;
+    color: #606266;
+    margin-left: -200px;
+
+  }
+
+  .active {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(117, 172, 209);
+    border-radius: 2px;
+  }
+
+  .image {
+    width: 1215px;
+    height: 330px;
+  }
+
+  #lun1 {
+    width: 1215px;
+    height: 330px;
+
+  }
+
+  .lun {
+    margin-bottom: 10px;
+  }
+
+  .word {
+    width: 10%;
+    height: 41px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    background-color: #ccdce9;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    line-height: 33px;
+    padding-top: 4px;
+    box-sizing: border-box;
+  }
+
+  .word:hover {
+    cursor: pointer;
+  }
+
+  .search>div {
+    width: 500px;
+    margin-left: 300px;
+    display: flex;
+  }
 </style>
