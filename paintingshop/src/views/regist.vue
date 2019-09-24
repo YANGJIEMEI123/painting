@@ -11,10 +11,8 @@
         label-width="100px"
         class="demo-ruleForm"
       >
-        <el-form-item id="a1" label="账号" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
-        </el-form-item>
-        <el-form-item
+
+           <el-form-item
           label="用户类型"
           prop="flag"
           :rules="[
@@ -30,6 +28,10 @@
             ></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item id="a1" label="账号" prop="name">
+          <el-input v-model="ruleForm.name"></el-input>
+        </el-form-item>
+   
         <el-form-item label="昵称" prop="nickname">
           <el-input v-model="ruleForm.nickname"></el-input>
         </el-form-item>

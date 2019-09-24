@@ -4,15 +4,7 @@
     <div class="login">
      <div class="overstyle"></div>
       <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
-  <el-form-item
-    prop="account"
-    label="账号"
-    :rules="[
-      { required: true, message: '请输入账号', trigger: 'blur' }
-    ]"
-  >
-    <el-input v-model="dynamicValidateForm.account"></el-input>
-  </el-form-item >
+  
    <el-form-item  label="账号类型" prop="flag"  :rules="[
       { required: true, message: '请选择账号类型', trigger: 'blur' }
     ]">
@@ -25,6 +17,16 @@
     </el-option>
   </el-select>
    </el-form-item>
+  <el-form-item
+    prop="account"
+    label="账号"
+    :rules="[
+      { required: true, message: '请输入账号', trigger: 'blur' }
+    ]"
+  >
+    <el-input v-model="dynamicValidateForm.account"></el-input>
+  </el-form-item >
+  
   <el-form-item
     prop="passwd"
     label="密码"
