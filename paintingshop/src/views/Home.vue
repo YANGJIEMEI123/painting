@@ -1,8 +1,10 @@
 <template>
 
   <div>
-    <div class="home">
-    </div>
+
+    <!-- <div class="home">
+
+    </div> -->
     <tops></tops>
     <!-- <div v-show="$store.getters.userType"><a>欢迎{{$store.getters.userAccount}}</a></div> -->
 
@@ -18,13 +20,16 @@
       <!-- 搜索栏 -->
       <div class="nav">
 
+
         <div>
         </div>
         <div class="search">
           <search @myevent="show" :msg="keyW"></search>
           <ul>
-            <li v-for="p in products" @click="select(p.name)">
+
+            <li v-for="p in products" @click="select(p.name)" :key=p.gid>
               <span>{{p.name}}</span>
+
             </li>
           </ul>
         </div>
@@ -42,10 +47,10 @@
       <div class="list">
         <!-- 图片列表 -->
         <div class="demo-image">
-
-          <div class="i" v-for="url in dataShow">
+          <div class="i" v-for="url in dataShow" :key="url.gid">
             <el-image style="width: 240px; height: 240px" :src="url.img"></el-image>
             <div class="price">￥{{url.price}}<span class="iconfont icon-99yuanbaoyou logo
+
                   "></span></div>
 
             <div class="name">{{url.name}}</div>
@@ -62,7 +67,7 @@
             <li><a v-on:click="prePage">&lt;
               </a>
             </li>
-            <li v-for="(item, index) in totalPage">
+            <li v-for="(item, index) in totalPage" :key=index>
               <a href="#" v-on: click="toPage(index) chang" :class="{active: currentPage==index}">{{ index+1 }}</a>
             </li>
             <li>
@@ -73,6 +78,7 @@
       </div>
       <bottoms></bottoms>
       <asides></asides>
+
     </div>
   </div>
 </template>
@@ -486,4 +492,6 @@
     text-align: start;
     background-color: rgb(250, 245, 245);
   }
+
+
 </style>

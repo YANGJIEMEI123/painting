@@ -14,7 +14,10 @@
     ]"
   >
     <el-input v-model="dynamicValidateForm.account"></el-input>
-  </el-form-item>
+  </el-form-item >
+   <el-form-item  label="账号类型" prop="flag"  :rules="[
+      { required: true, message: '请选择账号类型', trigger: 'blur' }
+    ]">
      <el-select v-model="dynamicValidateForm.flag" placeholder="请选择类型">
     <el-option
       v-for="item in options"
@@ -23,6 +26,7 @@
       :value="item.value">
     </el-option>
   </el-select>
+   </el-form-item>
   <el-form-item
     prop="passwd"
     label="密码"
@@ -56,9 +60,13 @@ export default {
         account: "",
         flag:""
       }
+    
     };
   },
   methods: {
+   beforeCreate:function(){
+    this.$store.commit("OnLogin",false)
+    },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -67,7 +75,7 @@ export default {
             .then(response => {
                 console.log(response.data.msg)
               if (response.data.msg == "登录成功") {
-                this.$store.commit("OnLogin",true);
+              this.$store.commit("OnLogin",true)
                   this.$store.commit("handleUserAccount",this.dynamicValidateForm.account);
                  this.$store.commit("handleFlag",this.dynamicValidateForm.flag);
                 console.log(response.data);
