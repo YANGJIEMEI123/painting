@@ -65,10 +65,10 @@
     .f {
         width: 100%;
         height: 380px;
-        background-color: #f4f4f4;
-        opacity: 0.8;
+        background-color: rgba(200,200, 210, 0.6);
         margin: 0 auto;
         margin-top: 20px;
+        color: rgba(40,40, 40,0.7);
     }
 
     .up {
@@ -123,13 +123,13 @@
     .son {
         width: 234px;
         height: 209px;
-        font-size: 16px;
+        font-size: 14px;
         border-right: 4px solid #999999;
     }
 
     .son>ul>li {
-        margin-top: 20px;
-        color: rgb(63, 50, 23);
+    margin-top: 20px;
+    color: rgba(40,40, 40,0.7);
     }
 
     .son>ul>li:hover {
