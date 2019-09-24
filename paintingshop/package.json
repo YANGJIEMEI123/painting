@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "alipay-sdk": "^3.0.7",
     "calendar.vue": "0.0.1",
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
