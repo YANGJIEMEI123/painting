@@ -64,7 +64,7 @@
 
 <el-upload  
   class="upload-demo" prop="filelist"
-  action="http://localhost:8081/upload"
+  action="/upload"
   :on-preview="handlePreview"
   :on-remove="handleRemove"
   :before-remove="beforeRemove"
@@ -200,7 +200,7 @@ el-form-item_content{
 
         this.$refs[formName].validate((valid) => {
           if (valid) {
-              this.axios.post("http://localhost:8081/publish",this.ruleForm)
+              this.axios.post("/publish",this.ruleForm)
             .then(response => {
               console.log(response.data);
               if (response.data.msg == "existed") {

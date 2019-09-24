@@ -14,7 +14,7 @@
         <div class="search">
           <search @myevent="show"></search>
           <ul>
-            <li v-for="p in products" @click="reget">
+            <li v-for="p in products" @click="reget" :key=p.gid >
               {{p.name}}
             </li>
           </ul>
@@ -87,6 +87,7 @@
         <asides></asides>
       </div>
  </div>
+</div>
 </div>
 </template>
 
