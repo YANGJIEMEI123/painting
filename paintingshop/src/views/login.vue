@@ -40,6 +40,7 @@
   </el-form-item>
 </el-form>
     </div>
+    <bottoms></bottoms>
   </div>
 </template>
 <script>
@@ -134,6 +135,9 @@ export default {
 .el-form-item{
 	width:460px;
 }
+.el-select{
+  width:360px;
+}
 .el-form-item__label{
 	color:#fff !important;
 }
@@ -149,7 +153,7 @@ input:focus{border-color:#12c6d3 !important;}
   width: 100%;
   height:500px;
   /* height: auto; */
-  background: #000000;
+  background: #00000030;
   opacity: 0.5;
   position: relative;
   z-index: 10;

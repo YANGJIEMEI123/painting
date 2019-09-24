@@ -267,6 +267,20 @@ app.post('/getmycar', function (req, res) {
     })
 })
 
+app.post('/updatamycar',function(req,res){
+    console.log(req.body.gid);
+    let sql = `delete  from mycar where gid='${req.body.gid}'`;
+    mydb.query(sql,(err,results)=>{
+        if(err){
+            console.log(err);
+            return;
+        }else{
+            console.log(results);
+            res.json(results);
+        }
+    })
+})
+
 
 
 app.listen(8081, () => {
