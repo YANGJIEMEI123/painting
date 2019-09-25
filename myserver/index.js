@@ -208,7 +208,7 @@ app.post('/getdetail', function (req, res) {
 
 app.post('/insertorder',function(req,res){
     console.log(req.body.totalPrice);
-    let sql = `INSERT INTO myoder (name,paynumber,userid,totalprice,state) VALUES ('${req.body.name}','${req.body.number}','12','${req.body.totalPrice}','1')`;
+    let sql = `INSERT INTO myoder (name,paynumber,account,totalprice,state) VALUES ('${req.body.name}','${req.body.number}','12','${req.body.totalPrice}','1')`;
     mydb.query(sql,(err,results)=>{
         if(err){
             console.log(err);
@@ -223,7 +223,8 @@ app.post('/insertorder',function(req,res){
 
 
 app.post('/addcar',function(req,res){
-    console.log(req.body.gid);
+    console.log("aaa");
+    console.log(req.body.account);
     let sql = `select * from mycar where gid = '${req.body.gid}'`;
     mydb.query(sql,(err,results)=>{
         if(err){
@@ -240,7 +241,7 @@ app.post('/addcar',function(req,res){
 				res.json(results)
 			})
 		}else{
-			let newsql = `insert into mycar (userid,gid,number) values('73','${req.body.gid}','${req.body.number}')`;
+			let newsql = `insert into mycar (account,gid,number) values('12','${req.body.gid}','${req.body.number}')`;
 			mydb.query(newsql,function(err,results){
 				if(err){
 					console.log(err);
@@ -255,7 +256,7 @@ app.post('/addcar',function(req,res){
 
 app.post('/getmycar', function (req, res) {
     console.log(req.body.gid);
-    let sql = `select g.name, g.img, g.price,m.number from goods as g ,mycar as m where g.gid=m.gid `;
+    let sql = `select g.name, g.img, g.price,m.number from goods as g ,mycar as m where g.gid=m.gid`;
     mydb.query(sql, (err, results) => {
         if (err) {
             console.log(err);

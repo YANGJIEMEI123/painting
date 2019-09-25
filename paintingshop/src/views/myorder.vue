@@ -9,7 +9,7 @@
   <el-breadcrumb-item></el-breadcrumb-item>
 </el-breadcrumb><hr>
   <el-table :data="blo" style="width: 100%" >
-    <el-table-column prop="userid" label="用户" width="180"></el-table-column>
+    <!-- <el-table-column prop="account" label="用户" width="180"></el-table-column> -->
     <el-table-column prop="name" label="商品名称" width="180"></el-table-column>
      <el-table-column prop="paynumber" label="数量" width="180"></el-table-column>
     <el-table-column prop="totalprice" label="金额" width="180"></el-table-column>

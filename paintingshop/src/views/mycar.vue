@@ -139,11 +139,13 @@ export default {
   },
   created() {
     this.goods.filter(it => (it.checked = false));
+    console.log(this.$store.getters.userAccount);
     this.axios
-      .post("/getmycar")
+      .post("/getmycar",{account:this.$store.getters.userAccount})
       .then(response => {
         this.goods = response.data;
         console.log(this.goods);
+        
         // this.cartNum;
         this.goods.forEach(function(data, index) {
           //   data.count = 1; //默认一个商品

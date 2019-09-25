@@ -193,17 +193,26 @@
 			addcar:function(){
                 if(this.$store.getters.userType==2){
                     alert("您没有该权限");
-                }
+				}
+				else if(this.$store.getters.userType==1){
+					alert("加入成功");
+				}else{
+					alert("请先登录");
+				}
 				console.log(this.value1);
+			
 				this.axios
-      .post("/addcar",{gid:sessionStorage['gid'],userid:localStorage.getItem("user_account"),number:this.value1})
+      .post("/addcar",{gid:sessionStorage['gid'],number:this.value1})
       .then((response)=>{
-        // this.da = response.data;
-        console.log(this.da);
+		// this.da = response.data;
+		// alert("加入成功");
+		console.log(this.da);
+		
       })
       .catch(function(error) {
         console.log(error);
-      });
+	  });
+
 			}
         },
         created:function(){

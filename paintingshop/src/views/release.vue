@@ -76,12 +76,12 @@
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
 </el-upload>
-<el-button type="success" plain style="margin-top:30px"  @click="submitForm('ruleForm')">发布商品</el-button>
+<el-button type="success" plain style="margin-top:30px;margin-bottom:30px"  @click="submitForm('ruleForm')">发布商品</el-button>
    <el-button @click="resetForm('ruleForm')">重置</el-button>
 </el-form>
 
 </div>
-
+<bottoms></bottoms>
     </div>
 </template>
 <style scoped>
