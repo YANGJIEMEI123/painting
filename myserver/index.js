@@ -67,6 +67,7 @@ app.post("/login", function (req, res) {
     mydb.query(sql, function (err, results) {
 
         if (results.account == req.body.account && results.passwd == req.body.password && results.flag == req.body.flag) {
+            
             res.json({
                 msg: "登录成功",
                 data: results
@@ -208,7 +209,7 @@ app.post('/getdetail', function (req, res) {
 
 app.post('/insertorder',function(req,res){
     console.log(req.body.totalPrice);
-    let sql = `INSERT INTO myoder (name,paynumber,account,totalprice,state) VALUES ('${req.body.name}','${req.body.number}','12','${req.body.totalPrice}','1')`;
+    let sql = `INSERT INTO myoder (name,paynumber,account,totalprice,state) VALUES ('${req.body.name}','${req.body.number}','${req.body.account}','${req.body.totalPrice}','1')`;
     mydb.query(sql,(err,results)=>{
         if(err){
             console.log(err);
@@ -256,6 +257,7 @@ app.post('/addcar',function(req,res){
 
 app.post('/getmycar', function (req, res) {
     console.log(req.body.gid);
+    // let sql=`select g.name, g.img, g.price,m.number from goods as g,mycar as m ,(select mycar.gid from mycar where account=0) as my where g.gid=my.gid`
     let sql = `select g.name, g.img, g.price,m.number from goods as g ,mycar as m where g.gid=m.gid`;
     mydb.query(sql, (err, results) => {
         if (err) {

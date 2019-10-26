@@ -22,7 +22,7 @@
 		</div>
 	</div>
 </template>
-<style>
+<style scoped>
 	.all{
 		margin-top:50px; 
 	}
@@ -142,7 +142,7 @@
 				mask:"",
 				rightdiv:"",
 				bigimg:"",
-				value: 4.5,
+				value: 3.9,
 				value1: 0,
 				url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
 				srcList: [
@@ -192,20 +192,24 @@
 			},
 			addcar:function(){
                 if(this.$store.getters.userType==2){
-                    alert("您没有该权限");
+					alert("您没有该权限");
+					return
 				}
-				else if(this.$store.getters.userType==1){
-					alert("加入成功");
-				}else{
+				else if(!(this.$store.getters.userType==1||this.$store.getters.userType==2)){
 					alert("请先登录");
+					return 
 				}
-				console.log(this.value1);
+				// console.log(this.value1);
 			
-				this.axios
+			// else{
+
+			// }
+			
+			this.axios
       .post("/addcar",{gid:sessionStorage['gid'],number:this.value1})
       .then((response)=>{
 		// this.da = response.data;
-		// alert("加入成功");
+		alert("加入成功");
 		console.log(this.da);
 		
       })

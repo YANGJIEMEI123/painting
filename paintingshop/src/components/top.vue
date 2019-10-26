@@ -42,19 +42,14 @@
     name: "app",
     data: function () {
       return {
-        myregist: true,
-        mylogin: true,
+        // myregist: true,
+        // mylogin: true,
         activeIndex: "1",
         activeIndex2: "1"
       };
     },
     methods: {
-      changeStatus() {
-        if (this.$store.getters.loginstatus == true) {
-          this.myregist = false;
-          this.mylogin = false;
-        }
-      },
+      
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },

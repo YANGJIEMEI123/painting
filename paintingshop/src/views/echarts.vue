@@ -13,7 +13,7 @@
     padding:150px 50px;
     display:flex;
     justify-content:space-between;
-    background-color: #666;
+    background-color: #333;
     height:300px;
 }
 </style>

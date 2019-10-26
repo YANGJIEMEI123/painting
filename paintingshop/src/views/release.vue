@@ -49,8 +49,8 @@
   </el-form-item>
 
    <el-form-item label="存货" prop="stock"    :rules="[
-      { required: true, message: '年龄不能为空'},
-      { type: 'number', message: '年龄必须为数字值'}
+      { required: true, message: '存货不能为空'},
+      { type: 'number', message: '存货必须为数字值'}
     ]">
     <el-input v-model.number="ruleForm.stock"  ></el-input>
   </el-form-item>
@@ -64,7 +64,7 @@
 
 <el-upload  
   class="upload-demo" prop="filelist"
-  action="/upload"
+  action="http://localhost:8081/upload"
   :on-preview="handlePreview"
   :on-remove="handleRemove"
   :before-remove="beforeRemove"
