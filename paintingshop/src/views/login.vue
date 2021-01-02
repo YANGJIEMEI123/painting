@@ -70,7 +70,6 @@ export default {
     },
     submitForm(formName) {
       console.log(23123412341234);
-      console.log(12341234);
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.axios
