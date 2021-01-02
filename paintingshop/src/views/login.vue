@@ -69,6 +69,7 @@ export default {
     this.$store.commit("OnLogin",false)
     },
     submitForm(formName) {
+      console.log('创建分支');
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.axios
