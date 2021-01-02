@@ -40,6 +40,7 @@
     <el-button type="primary" @click="submitForm('dynamicValidateForm')">提交</el-button>
     <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
   </el-form-item>
+  
 </el-form>
     </div>
     <bottoms></bottoms>
@@ -69,6 +70,8 @@ export default {
     this.$store.commit("OnLogin",false)
     },
     submitForm(formName) {
+      console.log("测试数据");
+
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.axios
